@@ -1,0 +1,32 @@
+\documentclass[a4paper,11pt,oneside]{book}
+\synctex=1
+
+\usepackage{packages}
+\usepackage{frontespizio}
+%\makeindex                                          %CREA INDICE ANALITICO
+
+%Document begin
+\begin{document}
+	%\afterpage{\cfoot{\thepage}} %METTE I NUMERI DI PAGINA IN FONDO AL FOOTER. NECESSARIO SE SI USA FANCYHDR
+	\frontespizio
+	%\clearpage{\pagestyle{empty}\cleardoublepage}
+	%\setlength{\parskip}{0em}
+	\tableofcontents
+	%\setlength{\parskip}{1em}
+	%\newpage
+	%\listoffigures
+	\newpage
+	\pagenumbering{arabic} %IMPOSTA NUMERAZIONE TRADIZIONALE A PARTIRE DALL'INTRODUZIONE
+	%\pagebreak
+	%===========================
+
+	% Numeri vicino alla riga
+	% \linenumbers
+
+	% \onehalfspacing
+
+	\nocite{*}
+	\bibliographystyle{plainnat}
+	\bibliography{bibliografia}{}
+
+\end{document}

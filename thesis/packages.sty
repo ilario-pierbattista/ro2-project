@@ -1,0 +1,104 @@
+% *********************************************************
+% *                      Pacchetti                        *
+% *********************************************************
+
+%Inclusioni
+\usepackage{lmodern}
+\usepackage{amsmath}	% advanced math symbols pkg
+\usepackage{amsthm, amsthm}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}	% utf8 encoding
+\usepackage{graphicx} % pictures support
+\usepackage{longtable} % table on multiple pages support
+\usepackage[italian]{babel} % language support
+\usepackage{enumitem} % custom enumeration support
+\usepackage{rotating} % Rotating pictures support
+\usepackage{float} % Support for floated images
+\usepackage{hyperref} % Support for href in toc
+\usepackage{marvosym} % Currency symbols
+\usepackage{fancyhdr} % Fancy headers
+\usepackage[
+	a4paper,
+	bottom=4cm
+]{geometry} % Geometry Page
+\usepackage{array}
+\usepackage{footnote}
+\usepackage{setspace}
+\usepackage{listings} % Code listings support
+\usepackage{afterpage} % Permette di mettere i numeri di pagina nel footer se si usa il package Fancyhdr
+\usepackage{lineno} % Numero di riga al margine sinistro
+\usepackage[numbers]{natbib}
+\usepackage{wrapfig}
+\usepackage{tikz} % Componente grafica
+\usepackage[font={small,it}]{caption}
+\usepackage[toc,page]{appendix}
+\usetikzlibrary{mindmap,trees} % Mappe concettuali
+\usepackage{newunicodechar}
+\usepackage{gensymb}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\modulolinenumbers[5]
+
+% * Intestazioni/piè di pagina *
+
+\pagestyle{fancy}															%OPZIONI PACCHETTO: fancy
+\fancyhf{} 																    %LIBERA TUTTI GLI HEADER
+\lhead{\rightmark}
+\rhead{\bfseries\thepage}										%RIGHT HEADER: num. pag. in grassetto
+\renewcommand{\headrulewidth}{0.4pt}						    %LINE ORIZ. INTESTAZIONE DI 0.4pt
+\renewcommand{\footrulewidth}{0pt}						    %LINE ORIZ. PIÈ PAG.: assente
+\setlength{\headheight}{15pt}													%ALTEZZA HEADER: 15pt
+\fancypagestyle{plain}{\fancyhead{}\renewcommand{\headrulewidth}{0pt}}		%NELLE PAG. VUOTE: non inserire niente
+
+\fancyhead[R]{\textbf{\thepage}} %Mostra il numero della pagina in grassetto;
+%a sinistra nelle pagine pari e destra in quelle dispari.
+\fancyhead[L]{\nouppercase{\leftmark}} %Mostra l'upper-level (Capitolo) RE: right, even page.
+%\fancyhead[LO]{\nouppercase{\leftmark}} %Mostra l'upper-level (Capitolo) LO: left, odd page.
+
+
+% * hyperref *
+
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle = {Implementazione di un Algoritmo di Identificazione della Persona utilizzando Frame di Profondità},													%TITOLO DEL PDF
+	pdfauthor= {Ilario Pierbattista},       	                    %AUTORE/I
+	colorlinks=true,												%ABILITA COLORE DEI COLLEGAMENTI
+	linkcolor=blue,													%COLLEGAMENTI DI COLORE: blu
+	bookmarksopen=true,									%ACROBAT: barra laterale segnalibri aperta
+	bookmarksopenlevel=0,								%ACROBAT: livello di sezione visibile
+	citecolor=black,								    %COLORE DELLE CITAZIONI: nere
+	urlcolor=black,										%COLORE URL: nero
+	%pdfsubject={???},
+	pdfkeywords=										%PAROLE CHIAVE DOCUMENTO
+		{Tesi} 
+		{Ingegneria Informatica} 
+		{Università Politecnica delle Marche}
+		{Adaboost}
+		{Machine Learning}
+		{Kinect}
+		{HASP} 
+		{C++} 
+		{Matlab}
+		{Java}
+		{CMake}
+		{UNIVPM}	
+}
+
+% Example tag definitions
+\theoremstyle{definition}
+\newtheorem{example}{Esempio}[section]
+\newtheorem{definition}{Definizione}
+
+
+% Redefining arraystretch
+\renewcommand{\arraystretch}{1.5}
+
+% Traduzione dei titoli per le appendici
+\renewcommand{\appendixtocname}{Appendici}
+\renewcommand{\appendixpagename}{Appendici}
+
+\newunicodechar{°}{\degree}
+
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\operatorname{max}}\;}
+\newcommand{\argmin}[1]{\underset{#1}{\operatorname{arg}\operatorname{min}}\;}
