@@ -1,0 +1,221 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+	\section{formule} % (fold)
+	\label{sec:formule}
+
+		\subsection{Grafi} % (fold)
+		\label{sub:grafi}
+			
+			$G = (\mathcal{N},\mathcal{A})$
+			$\mathcal{N} = \{1, 2, \cdots, n\}$
+			$\mathcal{A} = \{a_1, a_2, \cdots, a_m\}$
+			$|\mathcal{A}| = m$
+
+			$C = \left\{ (i_0,i_1), (i_1,i_2), \cdots, (i_{k-1}, i_k) \right\}$
+
+		\subsection{Descrizione Formale} % (fold)
+		\label{sub:descrizione_formale}
+			
+			$G = (\mathcal{N},\mathcal{A})$
+			$\mathcal{N} = \{1, 2, \cdots, n\}$
+			$\mathcal{N}_0 = \mathcal{N} \backslash \{0\}$
+			$i \neq j \in \mathcal{N}$
+
+			\begin{equation}
+				\label{eq:fuel_consumption}
+				F \approx \left( kNV + \frac{P_t \slash \epsilon + P_a}{\eta} \right) U
+			\end{equation}
+
+			$\eta \sim 0.45$
+			$M_{ij} = w + f_{ij}$
+
+			\begin{equation}
+				\label{eq:energy_approx}
+				P_{ij} \approx \alpha_{ij}(w + f_{ij})d_{ij} + \beta v_{ij}^2 d_{ij}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:slope_param}
+				\alpha_{ij} = a + g\sin(\theta_{ij}) + gC_r \cos(\theta_{i,j})
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:vehicle_param}
+				\beta = \frac{1}{2}C_d A \rho
+			\end{equation}
+
+			$[J] = \left[ \frac{kg m^2}{s^2} \right]$
+
+			\begin{equation}
+				\label{eq:fuel_consumed}
+				F_{consumed} = \frac{1}{\eta \cdot U_{diesel}} \sum_{(i,j) \in \mathcal{A}} P_{ij} 
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:overall_cost}
+				Cost = (c_f + c_e) \cdot F_{consumed}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:angle_calculation}
+				\phi^{(k)} = \arcsin \left(
+					\frac{h_{ij}^{(k)} - h_{ij}^{(k-1)}}
+						{d_{ij}^{(k)} - d_{ij}^{(k-1)}}
+					\right)
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:slope_assignment}
+				\theta_{ij}^{(k)} = 
+					\begin{cases}
+						\phi^{(k)}	&	\text{ se } \phi^{(k)} >= -2,8^\circ \\
+						-2,8^\circ	&	\text{ altrimenti } \\
+					\end{cases}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:fake_quote_diff_partial}
+				\Delta h_{ij}^{(k)} = (d_{ij}^{(k)} - d_{ij}^{(k-1)}) \sin(\theta_{ij}^{(k)})
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:fake_quote_diff}
+				\Delta h_{ij} = \sum_{k = 1}^{\mathcal{N}} \Delta h_{ij}^{(k)}
+			\end{equation}
+
+		\subsection{Modello Matematico} % (fold)
+		\label{sub:modello_matematico}
+
+			$x_{ij} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}$
+			$f_{ij} \geq 0 \qquad \forall (i,j) \in \mathcal{A}$
+			$0 \leq l_{ij} \leq v_{ij} \leq u_{ij} \qquad \forall (i,j) \in \mathcal{A}$
+			$y_i \geq 0 \qquad \forall i \in \mathcal{N}_0$
+			$s_i \geq 0 \qquad \forall i \in \mathcal{N}_0$
+
+			\begin{equation}
+				\label{eq:fuel_emission_cost}
+				 (c_f + c_e) \cdot 
+				 \frac{1}{\eta \cdot U_{diesel}} 
+				 \sum_{(i,j) \in \mathcal{A}} \left[
+				 	\alpha_{ij}wd_{ij}x_{ij} + 
+				 	\alpha_{ij}f_{ij}d_{ij}x_{ij} + 
+				 	\beta v_{ij}^2 d_{ij} x_{ij}
+				 \right]
+			\end{equation}
+
+			$$\alpha_{ij}f_{ij}d_{ij}x_{ij} = \alpha_{ij}f_{ij}d_{ij}$$
+			$$l_{ij} = l, u_{ij} = u \qquad \forall (i,j) \in \mathcal{A}$$
+
+			\begin{equation}
+				\label{eq:average_speed}
+				\overline v ^ r = \frac{u^r + l^r}{2}
+			\end{equation}
+
+			$z_{ij}^{r} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A} \, \forall r \in \mathcal{R}$
+
+			$$\overline v_{ij} = \sum_{r \in \mathcal{R}} \overline v^r z_{ij}^r $$
+
+			$$\beta v_{ij}^2 d_{ij} x_{ij} = 
+			\beta \left(\sum_{r \in \mathcal{R}} \overline v^r z_{ij}^r \right)^2 d_{ij} x_{ij} = 
+			\beta d_{ij} \sum_{r \in \mathcal{R}} (\overline v^r)^2 z_{ij}^r
+			$$
+
+			\begin{equation}
+				\label{eq:objective}
+				\min
+				(c_f + c_e) \cdot 
+				\frac{1}{\eta \cdot U_{diesel}} 
+				\sum_{(i,j) \in \mathcal{A}} \left[
+					\alpha_{ij}wd_{ij}x_{ij} + 
+					\alpha_{ij}f_{ij}d_{ij} + 
+					\beta d_{ij} \sum_{r \in \mathcal{R}} (\overline v^r)^2 z_{ij}^r
+				\right] + 
+				\sum{i \in \mathcal{N}_0} p s_j
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:fleet_usage}
+				\sum_{j \in \mathcal{N}} x_{0j} = m
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:single_exit}
+				\sum_{j \in \mathcal{N}} x_{ij} = 1 
+				\qquad 
+				\forall i \in \mathcal{N}_0
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:single_entrance}
+				\sum_{i \in \mathcal{N}} x_{ij} = 1 
+				\qquad 
+				\forall j \in \mathcal{N}_0
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:flux_balance}
+				\sum_{i \in \mathcal{N}}f_ik - \sum_{j \in \mathcal{N}_0}f_kj = q_k  
+				\qquad
+				\forall k \in \mathcal{N}_0
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:capacity_constraint}
+				q_j x_{ij} \leq f_{ij} \leq (Q - q_i)x_{ij} 
+				\qquad
+				\forall (i,j) \in \mathcal{A} 
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:temporal_consistency}
+				y_i + t_i + 
+				\sum_{r \in \mathcal{R}} \left(\frac{d_{ij}}{\overline v^r} z_{ij}^{r}\right) - 
+				y_j \leq
+				M_{ij}(1 - x_{ij})
+				\qquad
+				\forall i \in \mathcal{N}, j \in \mathcal{N}_0, i \neq j
+			\end{equation}
+
+			$$M_{ij} = \max \left\{ 0, b_i + t_i + \frac{d_{ij}} {l_{ij}} - a_j\right\}$$
+
+			\begin{equation}
+				\label{eq:time_windows}
+				a_i \leq y_i \leq b_i
+				\qquad
+				\forall i \in \mathcal{N}_0
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:total_temporal_constraint}
+				y_j + t_j - s_j +
+				\sum_{r \in \mathcal{R}}\left(\frac{d_{j0}}{\overline v^r}z_{ij}^{r}\right)
+				\leq L(1-x_{j0})
+				\qquad 
+				\forall j \in \mathcal{N}_0
+			\end{equation}
+					
+			\begin{equation}
+				\label{eq:speed_level_constraint}
+				\sum_{r \in \mathcal{R}}z_{ij}^{r} = x_{ij} 
+				\qquad
+				\forall (i,j) \in \mathcal{A}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:assignment_var}
+				x_{ij} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:assignment_var}
+				f_{ij} \geq 0 \qquad \forall (i,j) \in \mathcal{A}
+			\end{equation}
+
+			\begin{equation}
+				\label{eq:assignment_var}
+				z_{ij}^r \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}, r \in \mathcal{R}
+			\end{equation}
+	% section formule (end)
+\end{document}
