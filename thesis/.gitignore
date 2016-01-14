@@ -1,8 +1,16 @@
-ux
+.aux
+.bbl
+.blg
 .fdb_latexmk
+.fls
+.lof
+.log
+.lol
 .idx
 .ilg
 .ind
 .out
+.toc
+.pdf
 .synctex.gz
 _minted-index/
