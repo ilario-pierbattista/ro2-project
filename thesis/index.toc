@@ -1,7 +1,0 @@
-\select@language {italian}
-\select@language {italian}
-\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Panoramica del servizio}{3}{section.1.1}
-\contentsline {chapter}{Appendici}{5}{appendix*.5}
-\contentsline {section}{\numberline {A}La classe Insegnamento}{5}{section.Alph0.1}
-\contentsline {chapter}{Bibliografia}{7}{appendix*.6}
