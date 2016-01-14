@@ -11,6 +11,6 @@
 *.ind
 *.out
 *.toc
-*.pdf
+index.pdf
 *.synctex.gz
 _minted-index/
