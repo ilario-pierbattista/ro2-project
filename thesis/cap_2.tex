@@ -1,7 +1,69 @@
 % !TEX root=index.tex
 \chapter{Descrizione formale del Pollution Routing Problem}\label{ch:cap_2}
 
-Il \emph{Pollution Routing Problem}, come già accennato, è un’estensione del classico problema del \emph{Vehicle Routing} (vedi Capitolo \ref{ch:introduzione}) con una più ampia e comprensiva funzione obiettivo. Il problema consiste nell’instradare una flotta di veicoli per servire un set di clienti entro determinati intervalli temporali, calcolando la loro velocità in ogni tratto di strada e andando a minimizzare una funzione che tiene conto del carburante consumato, delle emissioni e del costo degli autisti. 
+	Il \emph{Pollution Routing Problem}, come già accennato, è un’estensione del classico problema del \emph{Vehicle Routing} (vedi Capitolo \ref{ch:introduzione}) con una più ampia e comprensiva funzione obiettivo. Il problema consiste nell’instradare una flotta di veicoli per servire un set di clienti entro determinati intervalli temporali, calcolando la loro velocità in ogni tratto di strada e andando a minimizzare una funzione che tiene conto del carburante consumato, delle emissioni e del costo degli autisti. 
 
-Il PRP può essere rappresentato formalmente tramite la teoria dei grafi: si prende un grafo completo $G = (\mathcal{N},\mathcal{A})$ dove $\mathcal{N} = \{1, 2, \cdots, n\}$ è l'insieme di nodi, $0$ è il deposito, $\mathcal{N}_0 = \mathcal{N} \backslash \{0\}$ è il set di clienti ed $\mathcal{A}$ è l'insieme di archi che collegano una coppia di nodi. \\*
-La distanza tra due nodi $i \neq j \in \mathcal{N}$  è indicata con $d_{i,j}$. Una flotta omogenea $\mathcal{K} = \{1, 2, \cdots, m\}$ di veicoli, ognuno con una capacità massima pari a $Q$ unità, è disponibile per servire tutti i clienti, dove ogni cliente $i \in \mathcal{N}_0$ ha un’esigenza non negativa di $q_{i}$ unità.
+	Il PRP può essere rappresentato formalmente tramite la teoria dei grafi: si prende un grafo completo $G = (\mathcal{N},\mathcal{A})$ dove $\mathcal{N} = \{1, 2, \cdots, n\}$ è l'insieme di nodi, $0$ è il deposito, $\mathcal{N}_0 = \mathcal{N} \backslash \{0\}$ è il set di clienti ed $\mathcal{A}$ è l'insieme di archi che collegano una coppia di nodi. \\*
+	La distanza tra due nodi $i \neq j \in \mathcal{N}$  è indicata con $d_{i,j}$. Una flotta omogenea $\mathcal{K} = \{1, 2, \cdots, m\}$ di veicoli, ognuno con una capacità massima pari a $Q$ unità, è disponibile per servire tutti i clienti, dove ogni cliente $i \in \mathcal{N}_0$ ha un’esigenza non negativa di $q_{i}$ unità. Ad ogni cliente $i \in \mathcal{N}_0$ corrisponde poi un tempo di servizio $s_{i}$ e una finestra temporale $[a_{i},b_{i}]$ entro la quale il servizio deve essere effettuato. 
+
+	Ogni veicolo emette una certa quantità di gas serra (da qui in poi indicato come GHG) quando percorre un arco $(i,j)$. Questa quantità dipende da un certo numero di fattori, dove i più decisivi sono sicuramente la \emph{velocità} e il \emph{carico} del veicolo. Nonostante alcuni tra questi fattori siano statici e fissati a priori (es.: la gravità e la pendenza stradale), le variabili di carico e di velocità possono essere controllate. \\*
+	Il carico del veicolo, il cui valore massimo è definito dalla differenza tra il valore della \emph{massa totale a terra} (MTT) e la tara, è infatti un valore dinamico che cambia ogniqualvolta il veicolo effettua un servizio (e quindi scarica del peso). \\*
+	La velocità alla quale un veicolo viaggia su un arco $(i,j)$ è vincolata invece da un limite inferiore e da un limite superiore, indicati rispettivamente con $l_{i,j}$ e $u_{i,j}$, normalmente imposti dal codice della strada.
+
+	Un’unità di GHG emesso ha un costo stimato che viene indicato dal parametro e. Nonostante questi costi siano difficili da quantificare, esistono alcune pubblicazioni che hanno calcolato una stima verosimile dei costi sociali del diossido di carbonio e della sua riduzione. In questa tesi abbiamo utilizzato la stima fornita da Moore et al. \cite{moore2015temperature}, la quale prevede un costo di 37\$ per ogni tonnellata di gas emesso.
+
+\section{Modellazione delle emissioni} % (fold)
+\label{sec:modellazione_emissioni}
+	La modellazione che proponiamo del consumo di carburante e delle emissioni segue lo stesso approccio adottato da Bektaş e Laporte \cite{Laporte11}. Forniamo ora una breve descrizione per completezza di esposizione.
+
+	Dato che le emissioni di GHG sono direttamente proporzionali all’ammontare di carburante consumato, usiamo il rate di utilizzazione del carburante, indicato come $F$, come parametro per il calcolo delle emissioni totali di gas:
+
+	\begin{equation}
+		\label{eq:fuel_consumption}
+		F \approx \left( kNV + \frac{P_t \slash \epsilon + P_a}{\eta} \right) U
+	\end{equation}
+
+	dove $k$ è il coefficiente di frizione del motore, $N$ è la velocità del motore, $V$ è la cilindrata del motore, $P_{t}$ è il requisito (in watt) di potenza totale di trazione, $\epsilon$ è l'efficienza di trasmissione del veicolo, $P_{a}$ è la richiesta di potenza del motore associata con le perdite del motore stesso, $\eta \sim 0.45$ è il parametro di efficienza per i motori diesel e $U$ è un valore che dipende da alcune costanti tra cui $N$.
+
+	Ai fini pratici, si assume che durante il tragitto di un veicolo tutti i parametri rimangano costanti per un determinato arco (mentre il carico e la velocità possono cambiare da un arco all’altro). Questo significa che un veicolo viaggerà ad una velocità media di $v=v_{i,j}$ (metri/secondo) su un arco $(i,j)$ di lunghezza $d_{i,j}$ (metri) e di pendenza $\theta = \theta_{i,j}$ trasportando un carico totale pari a $M_{ij} = w + f_{ij}$, dove $w$ è la tara del veicolo, mentre $f_{i,j}$ è il carico trasportato dal veicolo in quel tratto di strada.
+
+	L’energia totale consumata sull’arco $(i,j)$ può essere quindi espressa come:
+
+	\begin{equation}
+		\label{eq:energy_approx}
+		P_{ij} \approx \alpha_{ij}(w + f_{ij})d_{ij} + \beta v_{ij}^2 d_{ij}
+	\end{equation}
+
+	dove:
+
+	\begin{equation}
+		\label{eq:slope_param}
+		\alpha_{ij} = a + g\sin(\theta_{ij}) + gC_r \cos(\theta_{i,j})
+	\end{equation}
+
+	è una costante specifica per l’arco dove $a$ è l’accelerazione del veicolo, $g$ è la costante di accelerazione gravitazionale e $C_{r}$ è il coefficiente di resistenza al rotolamento. Mentre:
+
+	\begin{equation}
+		\label{eq:vehicle_param}
+		\beta = \frac{1}{2}C_d A \rho
+	\end{equation}
+
+	è una costante specifica per il veicolo dove $C_{d}$ è la resistenza alla penetrazione dell’aria, $A$ è la superficie frontale del veicolo in $m^2$ e $\rho$ è la densità dell’aria.
+
+	L’approssimazione dell’energia totale consumata su un determinato arco $(i,j)$ attraverso l’equazione (\ref{eq:energy_approx}) contro la (\ref{eq:fuel_consumption}), ha permesso di ottenere una valore di energia necessaria al trasporto direttamente in joule $[J] = \left[ \frac{kg m^2}{s^2} \right]$, il quale è stato utilizzato per il calcolo del costo del carburante e delle emissioni. \\*
+	Considerando che ogni litro di carburante riesce a sviluppare, idealmente, una determinata quantità di energia (es.:un litro di gasolio sviluppa $36,4 MJ$), e moltiplicando tale valore per il rendimento medio del motore dei veicoli, si ottiene la quantità di energia sviluppata realmente impiegando un litro di carburante. Dividendo quindi la \emph{quantità complessiva di energia necessaria al trasporto} per la \emph{quantità di energia sviluppata realmente da un litro di carburante}, si ottiene la \emph{quantità di carburante necessaria al trasporto}:
+
+	\begin{equation}
+		\label{eq:fuel_consumed}
+		F_{consumed} = \frac{1}{\eta \cdot U_{diesel}} \sum_{(i,j) \in \mathcal{A}} P_{ij} 
+	\end{equation}
+
+	Il costo totale del carburante e delle emissioni può essere quindi espresso come:
+
+	\begin{equation}
+		\label{eq:overall_cost}
+		Cost = (c_f + c_e) \cdot F_{consumed}
+	\end{equation}
+
+	%inserire tabellona con parametri statici
+
