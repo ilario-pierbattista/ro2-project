@@ -12,7 +12,7 @@
 
 	Un’unità di GHG emesso ha un costo stimato che viene indicato dal parametro e. Nonostante questi costi siano difficili da quantificare, esistono alcune pubblicazioni che hanno calcolato una stima verosimile dei costi sociali del diossido di carbonio e della sua riduzione. In questa tesi abbiamo utilizzato la stima fornita da Moore et al. \cite{moore2015temperature}, la quale prevede un costo di 37\$ per ogni tonnellata di gas emesso.
 
-\section{Modellazione delle emissioni} % (fold)
+\section{Modellazione delle emissioni}
 \label{sec:modellazione_emissioni}
 	La modellazione che proponiamo del consumo di carburante e delle emissioni segue lo stesso approccio adottato da Bektaş e Laporte \cite{Laporte11}. Forniamo ora una breve descrizione per completezza di esposizione.
 
@@ -20,10 +20,10 @@
 
 	\begin{equation}
 		\label{eq:fuel_consumption}
-		F \approx \left( kNV + \frac{P_t \slash \epsilon + P_a}{\eta} \right) U
+		F \approx \left( kNV + \frac{P_t \slash \varepsilon + P_a}{\eta} \right) U
 	\end{equation}
 
-	dove $k$ è il coefficiente di frizione del motore, $N$ è la velocità del motore, $V$ è la cilindrata del motore, $P_{t}$ è il requisito (in watt) di potenza totale di trazione, $\epsilon$ è l'efficienza di trasmissione del veicolo, $P_{a}$ è la richiesta di potenza del motore associata con le perdite del motore stesso, $\eta \sim 0.45$ è il parametro di efficienza per i motori diesel e $U$ è un valore che dipende da alcune costanti tra cui $N$.
+	dove $k$ è il coefficiente di frizione del motore, $N$ è la velocità del motore, $V$ è la cilindrata del motore, $P_{t}$ è il requisito (in watt) di potenza totale di trazione, $\varepsilon$ è l'efficienza di trasmissione del veicolo, $P_{a}$ è la richiesta di potenza del motore associata con le perdite del motore stesso, $\eta \sim 0.45$ è il parametro di efficienza per i motori diesel e $U$ è un valore che dipende da alcune costanti tra cui $N$.
 
 	Ai fini pratici, si assume che durante il tragitto di un veicolo tutti i parametri rimangano costanti per un determinato arco (mentre il carico e la velocità possono cambiare da un arco all’altro). Questo significa che un veicolo viaggerà ad una velocità media di $v=v_{i,j}$ (metri/secondo) su un arco $(i,j)$ di lunghezza $d_{i,j}$ (metri) e di pendenza $\theta = \theta_{i,j}$ trasportando un carico totale pari a $M_{ij} = w + f_{ij}$, dove $w$ è la tara del veicolo, mentre $f_{i,j}$ è il carico trasportato dal veicolo in quel tratto di strada.
 
@@ -67,3 +67,62 @@
 
 	%inserire tabellona con parametri statici
 
+\section{Calcolo delle pendenze stradali}
+\label{sec:calcolo_pendenze}
+	Usufruendo di un web service pubblico \cite{web-service} abbiamo ottenuto informazioni sulla conformazione stradale per ogni arco $(i,j)$, in particolare riguardo alle quote e alla lunghezza dei tratti.
+
+	Il percorso, fornito di default dalle API\footnote{Con \emph{Application Programming Interface} (in acronimo API, in italiano interfaccia di programmazione di un'applicazione), in informatica, si indica ogni insieme di procedure disponibili al programmatore, di solito raggruppate a formare un set di strumenti specifici per l'espletamento di un determinato compito all'interno di un certo programma.} di Google Maps, viene scomposto in intervalli da tale servizio e, per ognuno di questi ultimi, viene fornita la \emph{distanza dal punto di partenza} e la \emph{quota sul livello del mare}.
+
+	In prima approssimazione, abbiamo pensato di calcolare la pendenza media di un ciascun tratto di strada utilizzando la differenza in quota e la distanza tra il nodo di partenza e la meta, tuttavia, questo approccio non tiene conto né delle variazioni intermedie di pendenza né dell’azione frenante indotta dal freno motore che comporta una perdita di energia.
+
+	Il freno motore, nei veicoli di grande cilindrata, entra in funzione parallelamente all’impianto frenante nei tratti di discesa la cui pendenza supera il 5\%. Come è intuitivo pensare, nei tratti di discesa la quantità di energia necessaria allo spostamento del mezzo è minore rispetto ad un tratto in pianura o in salita, tuttavia, quando entra in funzione il freno motore vi saranno, a fronte di un risparmio di energia indotto dalla discesa, un dispendio di energia indotto dal lavoro dell’attrito. Assumendo che tali quantità di energia si eguaglino (infatti l’azione frenante del veicolo fa in modo che la velocità rimanga costante anche nei tratti di discesa), sarà sufficiente troncare tutte le pendenze più ripide del 5\% a tale valore.
+
+	Per l’analisi dei percorsi è stato scritto uno script in Python (codice in Appendice \ref{appendix:model}) che, a partire dai dati relativi ad ogni percorso, calcolasse la lunghezza complessiva e la pendenza media del percorso. Nello specifico, l'algoritmo segue implementa la seguente logica:
+
+	\begin{enumerate}
+	  \item Per ogni arco $(i,j) \in A:$
+	  \begin{enumerate}
+	    \item I dati relativi all’arco sono organizzati in $N+1$ coppie $(quota,distanza)$.
+	    \item Per ogni $k = [1,\cdots,N]$
+	    \begin{enumerate}
+	    	\item Si calcola la pendenza $\theta_{k}$ in gradi tra la coppia (k-1)-esima e quella k-esima: 
+
+	    	\begin{equation}
+				\label{eq:angle_calculation}
+				\phi^{(k)} = \arcsin \left(
+					\frac{h_{ij}^{(k)} - h_{ij}^{(k-1)}}
+						{d_{ij}^{(k)} - d_{ij}^{(k-1)}}
+					\right)
+			\end{equation}
+
+			\item Se l’intervallo è un tratto in salita o in pianura ($\theta_{k} \geq 0$ ) allora l’angolo rimane tale.\\*
+			Se invece si tratta di un tratto in discesa ($\theta_{i} < 0$) allora bisogna confrontarlo con la soglia: se $\theta_{k} < -2.8$° (che è l’angolo, in gradi, che approssima la pendenza del 5\% in discesa) il valore di $\theta_{k}$ viene troncato a $-2.8$°.
+
+			\begin{equation}
+				\label{eq:slope_assignment}
+				\theta_{ij}^{(k)} = 
+					\begin{cases}
+						\phi^{(k)}	&	\text{ se } \phi^{(k)} >= -2,8^\circ \\
+						-2,8^\circ	&	\text{ altrimenti } \\
+					\end{cases}
+			\end{equation}
+
+			\item Viene calcolata la differenza di quota fittizia\footnote{Il termine fittizio deriva dal fatto che le discese la cui pendenza supera il 5\% sono state troncate. Di conseguenza, le differenze di quota non rispecchieranno più le differenze reali.} $\Delta h^{(k)}$ tra la coppia (k-1)-esima e la k-esima:
+
+			\begin{equation}
+				\label{eq:fake_quote_diff_partial}
+				\Delta h_{ij}^{(k)} = (d_{ij}^{(k)} - d_{ij}^{(k-1)}) \sin(\theta_{ij}^{(k)})
+			\end{equation}
+	    \end{enumerate}
+
+	    \item Si sommano algebricamente tutti i valori $\Delta h^{(k)}$. Ciò che si ottine è la differenza di quota fittizia complessiva:
+
+	    \begin{equation}
+			\label{eq:fake_quote_diff}
+			\Delta h_{ij} = \sum_{k = 1}^{\mathcal{N}} \Delta h_{ij}^{(k)}
+		\end{equation}
+
+		\item Dividendo la \emph{differenza di quota fittizia complessiva} per la \emph{lunghezza del percorso} si ottiene il \emph{seno dell’angolo medio di pendenza} del percorso per l’arco $(i,j)$.
+
+	  \end{enumerate}
+	\end{enumerate}

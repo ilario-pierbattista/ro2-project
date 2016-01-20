@@ -116,14 +116,14 @@
 	\label{sec:vincoli}
 
 		\begin{description}
-			\item[Vincolo di utilizzazione della flotta]
+			\item[Vincolo di utilizzazione della flotta]-
 				Questo è vincolo è fondamentale al fine di indicare il corretto numero di veicoli in circolazione all’interno della rete e poi in ritorno al deposito. Nonostante il modello assuma come costante il numero $m$ di veicoli, è possibile estenderlo facilmente in modo tale che consenta un numero variabile di veicoli. Basta infatti trattare $m$ come una variabile decisionale ed aumentare la funzione obiettivo di un fattore $csi \cdot m$, dove $csi$ corrisponde al costo di acquisizione di un veicolo.
 				\begin{equation}
 					\label{eq:fleet_usage}
 					\sum_{j \in \mathcal{N}} x_{0j} = m
 				\end{equation}
 
-			\item[Vincolo sul numero di visite]
+			\item[Vincolo sul numero di visite]-
 				Questa coppia di vincoli impone che 	ogni nodo del grafo sia visitato al più da un veicolo, imponendo che per ogni nodo (escluso il deposito) sia percorso un solo arco uscente ed un solo arco entrante.
 				\begin{equation}
 					\label{eq:single_exit}
@@ -139,7 +139,7 @@
 					\forall j \in \mathcal{N}_0
 				\end{equation}
 
-			\item[Bilanciamento del flusso]
+			\item[Bilanciamento del flusso]-
 				Questo vincolo modella il bilanciamento del flusso nella rete stradale imponendo che la differenza tra la quantità di merce $f_{ij}$ che arriva ad un cliente e che ne esce deve essere pari alla domanda di merce $q_i$ del cliente.
 				\begin{equation}
 					\label{eq:flux_balance}
@@ -148,7 +148,7 @@
 					\forall k \in \mathcal{N}_0
 				\end{equation}
 
-			\item[Vincoli sulla capacità di carico]
+			\item[Vincoli sulla capacità di carico]-
 				Questi vincoli impongono semplicemente che la quantità di merce caricata in ogni veicolo non può superare la sua capacità di carico.
 				\begin{equation}
 					\label{eq:capacity_constraint}
@@ -157,7 +157,7 @@
 					\forall (i,j) \in \mathcal{A} 
 				\end{equation}
 
-			\item[Vincolo di consistenza temporale]
+			\item[Vincolo di consistenza temporale]-
 				Il vincolo impone che le variabili decisionali relative agli istanti di arrivo dei veicoli ai nodi siano consistenti con i tempi di servizio ed i tempi di percorrenza. In particolare, se l’arco $(i,j)$ viene selezionato per fare parte del set delle rotte, l’istante di arrivo al nodo \emph{j-esimo} deve essere successivo all’istante di arrivo al nodo i-esimo a cui viene sommato il relativo tempo di servizio ed il tempo di percorrenza dell’arco alla velocità selezionata.
 				\begin{equation}
 					\label{eq:temporal_consistency}
@@ -171,7 +171,7 @@
 
 				$$M_{ij} = \max \left\{ 0, b_i + t_i + \frac{d_{ij}} {l_{ij}} - a_j\right\}$$
 
-			\item[Vincolo sulle finestre temporali]
+			\item[Vincolo sulle finestre temporali]-
 				Questo vincolo impone che, ad ogni cliente, il veicolo che lo deve servire arrivi entro il tempo $a_i$ e non oltre il tempo $b_i$.
 				\begin{equation}
 					\label{eq:time_windows}
@@ -180,7 +180,7 @@
 					\forall i \in \mathcal{N}_0
 				\end{equation}
 
-			\item[Vincolo di lunghezza temporale delle rotte]
+			\item[Vincolo di lunghezza temporale delle rotte]-
 				Il vincolo impone riguarda la lunghezza temporale complessiva di ogni rotta (veicolo/autista) ed impone che il tempo di arrivo ad ogni cliente $j$ ($y_j$), considerando anche il tempo necessario a servirlo ($t_j$), qualora questo sia l'ultimo ad essere servito ($x_{j0}=1$), non superi la massima lunghezza temporale consentita.
 				\begin{equation}
 					\label{eq:total_temporal_constraint}
@@ -191,7 +191,7 @@
 					\forall j \in \mathcal{N}_0
 				\end{equation} 
 
-			\item[Vincolo di velocità]
+			\item[Vincolo di velocità]-
 				Questa relazione impone i vincoli sulle velocità assumibili specificando la relazione che intercorre tra la variabile decisionale $z_{ij}^r$ e la variabile decisionale $x_{ij}$.
 				\begin{equation}
 					\label{eq:speed_level_constraint}

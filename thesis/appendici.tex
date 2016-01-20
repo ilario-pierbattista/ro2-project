@@ -6,5 +6,10 @@
 	\captionsetup{aboveskip=1pt, belowskip=30pt} % Impostazione margini dei caption per i listati
 
 	\section{Lo Script per il Calcolo delle Pendenze}\label{appendix:model}
-		\inputminted[autogobble, frame=lines, framesep=3mm]{python}{code/process_routes}
+		Qui di seguito vengono riportate le due classi implementate in Python utilizzate per il calcolo delle pendenze dei tratti stradali (vedi Capitolo \ref{sec:calcolo_pendenze}). \\*
+		In particolare la classe \texttt{Route} implementa la vera e propria logica di business, mentre la classe \texttt{DataFormatter} funge semplicemente da servizio di formattazione dei dati generati da \texttt{Route}.\\*
+		La spiegazione dettagliata dell'implementazione è fornita come commento a fianco del codice.
+
+
+		\inputminted[autogobble, frame=lines, framesep=3mm]{python}{code/process_routes.py}
 		\captionof{listing}{Lo script per il calcolo delle pendenze \label{code:slope_script}}
