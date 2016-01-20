@@ -1,0 +1,231 @@
+% !TEX root=index.tex
+\chapter{Formulazione del Modello Matematico}\label{ch:model}
+
+	Lo scopo del PRP è quello di minimizzare il costo totale della distribuzione che può essere scomposto in \emph{costo del carburante}, \emph{costo delle emissioni} e \emph{costo degli autisti}. Come si è visto nelle sezioni precedenti i primi due costi sono strettamente legati alla quantità di carburante utilizzata dai veicoli per seguire le rotte. Il costo degli autisti è proporzionale al tempo che essi impiegano a percorrere la rotta a loro assegnata.
+
+	Si introducono, quindi, le seguenti variabili decisionali:
+
+	\newlength{\varwidth}
+	\setlength{\varwidth}{0.40\textwidth}
+	\newlength{\descwidth}
+	\setlength{\descwidth}{0.59\textwidth}
+
+	\begin{minipage}[t]{\varwidth}
+		$x_{ij} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}$
+	\end{minipage}
+	\begin{minipage}[t]{\descwidth}
+		$x_{ij}$ è pari ad $1$ se il percorso, modellato dall’arco $(i,j)$, viene attraversato da un veicolo. In caso contrario, cioè per $x_{ij} = 0$, l’arco $(i,j)$ sarà escluso dal set delle rotte.
+	\end{minipage}
+
+	\begin{minipage}[t]{\varwidth}
+		$f_{ij} \geq 0 \qquad \forall (i,j) \in \mathcal{A}$
+	\end{minipage}
+	\begin{minipage}[t]{\descwidth}
+		Questa variabile rappresenta la quantità, del bene distribuito, che viene trasportata da un veicolo lungo l’arco $(i,j)$.
+	\end{minipage}
+
+	\begin{minipage}[t]{\varwidth}
+		$0 \leq l_{ij} \leq v_{ij} \leq u_{ij} \qquad \forall (i,j) \in \mathcal{A}$
+	\end{minipage}
+	\begin{minipage}[t]{\descwidth}
+		La variabile $v_{ij}$ rappresenta la velocità alla quale un veicolo viaggia lungo l’arco $(i,j)$. Oltre a dover essere, chiaramente, positiva, è necessario che sia compresa entro i limiti di velocità associati a ciascun arco ($l_{ij}$ e $u_{ij}$).
+	\end{minipage}
+
+	\begin{minipage}[t]{\varwidth}
+		$y_i \geq 0 \qquad \forall i \in \mathcal{N}_0$
+	\end{minipage}
+	\begin{minipage}[t]{\descwidth}
+		$y_i$ rappresenta l’istante di arrivo dei veicoli ai singoli nodi, fatta esclusione per il deposito.
+	\end{minipage}
+
+	\begin{minipage}[t]{\varwidth}
+		$s_i \geq 0 \qquad \forall i \in \mathcal{N}_0$
+	\end{minipage}
+	\begin{minipage}[t]{\descwidth}
+		Identificano la quantità di tempo necessaria ad un veicolo per seguire la rotta che comprende come ultimo cliente il nodo \emph{i-esimo}. Ci si farà riferimento utilizzando il termine \emph{tourtime}.
+	\end{minipage}
+
+	\begin{equation}
+		\label{eq:fuel_emission_cost}
+		 (c_f + c_e) \cdot 
+		 \frac{1}{\eta \cdot U_{diesel}} 
+		 \sum_{(i,j) \in \mathcal{A}} \left[
+		 	\alpha_{ij}wd_{ij}x_{ij} + 
+		 	\alpha_{ij}f_{ij}d_{ij}x_{ij} + 
+		 	\beta v_{ij}^2 d_{ij} x_{ij}
+		 \right]
+	\end{equation}
+
+	La formulazione della funzione obiettivo che deriva dall’utilizzo di tali variabili decisionali non è lineare, in quanto i termini $\alpha_{ij}f_{ij}d_{ij}x_{ij}$ e $\beta v_{ij}^2 d_{ij} x_{ij}$, contengono il prodotto tra due variabili decisionali.
+
+	Nel primo caso il prodotto $f_{ij}x_{ij}$ non costituisce un problema: infatti se un arco del grafo non viene scelto per la far parte del set di rotte, sicuramente esso non verrà percorso, quindi la quantità di bene attraverso di esso sarà nulla, quindi se $x_{ij} = 0$ allora anche $f_{ij} = 0$. Alla luce di questa considerazione $f_{ij} = f_{ij} \cdots x_{ij}$ e la componente della funzione obiettivo diventa lineare.
+
+	$$\alpha_{ij}f_{ij}d_{ij}x_{ij} = \alpha_{ij}f_{ij}d_{ij}$$
+
+	Il termine $\beta v_{ij}^2 d_{ij} x_{ij}$ necessita invece di una procedura di linearizzazione vera e propria. Innanzi tutto si assume, per mantenere semplice sia la notazione che la formulazione del modello, che tutti gli archi hanno gli stessi limiti di velocità.
+
+	$$l_{ij} = l, u_{ij} = u \qquad \forall (i,j) \in \mathcal{A}$$
+
+	Si definisce inoltre un insieme di livelli di velocità $\mathcal{R} = {1,2,...,r,...}$, con i quali, una volta partizionato l’intervallo descritto dai limiti di velocità globali, si selezioneranno i vari range risultanti. La procedura di linearizzazione mirerà a rendere variabile decisionale, il \emph{livello della velocità} anzichè la velocità stessa.
+			
+	Per ogni $r$ in $\mathcal{R}$ esisterà un range di velocità $[l_r, u_r]$. Si noti che non si impongono particolari limitazioni nella scelta di tali range, oltre il fatto che essi devono costituire a tutti gli effetti un partizionamento di $[l, u]$. Per semplicità abbiamo scelto di utilizzare range di velocità della stessa ampiezza.
+
+	Per ogni intervallo, si calcolerà la velocità media (equazione \ref{eq:average_speed}) relativamente al livello $r$, che sarà quella effettivamente mantenuta lungo il tratto di strada.
+
+	\begin{equation}
+		\label{eq:average_speed}
+		\overline v ^ r = \frac{u^r + l^r}{2}
+	\end{equation}
+
+	Si introduce quindi una nuova variabile decisionale, che andrà a sostituire la variabile $v_{ij}$.
+	$z_{ij}^{r} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A} \, \forall r \in \mathcal{R}$: questa variabile binaria assume il valore $1$ se un veicolo attraversa un arco $(i,j)$ ad una velocità compresa nell’intervallo $r \in \mathcal{R}$, $0$ altrimenti.
+
+	Affinchè quest’ultima abbia senso, deve sempre essere soggetta al seguente vincolo: se l’arco $(i,j)$ non viene selezionato per appartenere ad alcuna rotta, allora $z_{ij}^r = 0$ per ogni $r$ in $\mathcal{R}$; viceversa, se l’arco viene selezionato, allora deve esistere uno ed un solo $r$ in $\mathcal{R}$ tale che $z_{ij}^r \neq 0$.
+
+	A questo punto, la velocità lungo un arco può essere calcolata con la formula:
+
+	$$\overline v_{ij} = \sum_{r \in \mathcal{R}} \overline v^r z_{ij}^r $$
+
+	e quindi:
+
+	$$\beta v_{ij}^2 d_{ij} x_{ij} = 
+		\beta \left(\sum_{r \in \mathcal{R}} \overline v^r z_{ij}^r \right)^2 d_{ij} x_{ij} = 
+		\beta d_{ij} \sum_{r \in \mathcal{R}} (\overline v^r)^2 z_{ij}^r
+	$$
+
+	eliminando il prodotto tra variabili decisionali e divenendo una relazione lineare.
+
+	Da queste considerazioni deriva la formulazione di programmazione lineare intera del Pollution Routing Problem:
+
+	\begin{equation}
+		\label{eq:objective}
+		\min\left\{
+		(c_f + c_e) \cdot 
+		\frac{1}{\eta \cdot U_{diesel}} 
+		\sum_{(i,j) \in \mathcal{A}} \left[
+			\alpha_{ij}wd_{ij}x_{ij} + 
+			\alpha_{ij}f_{ij}d_{ij} + 
+			\beta d_{ij} \sum_{r \in \mathcal{R}} (\overline v^r)^2 z_{ij}^r
+		\right] + 
+		\sum_{i \in \mathcal{N}_0} p s_j
+		\right\}
+	\end{equation}
+
+
+	\section{Vincoli} % (fold)
+	\label{sec:vincoli}
+
+		\begin{description}
+			\item[Vincolo di utilizzazione della flotta]
+				Questo è vincolo è fondamentale al fine di indicare il corretto numero di veicoli in circolazione all’interno della rete e poi in ritorno al deposito. Nonostante il modello assuma come costante il numero $m$ di veicoli, è possibile estenderlo facilmente in modo tale che consenta un numero variabile di veicoli. Basta infatti trattare $m$ come una variabile decisionale ed aumentare la funzione obiettivo di un fattore $csi \cdot m$, dove $csi$ corrisponde al costo di acquisizione di un veicolo.
+				\begin{equation}
+					\label{eq:fleet_usage}
+					\sum_{j \in \mathcal{N}} x_{0j} = m
+				\end{equation}
+
+			\item[Vincolo sul numero di visite]
+				Questa coppia di vincoli impone che 	ogni nodo del grafo sia visitato al più da un veicolo, imponendo che per ogni nodo (escluso il deposito) sia percorso un solo arco uscente ed un solo arco entrante.
+				\begin{equation}
+					\label{eq:single_exit}
+					\sum_{j \in \mathcal{N}} x_{ij} = 1 
+					\qquad 
+					\forall i \in \mathcal{N}_0
+				\end{equation}
+
+				\begin{equation}
+					\label{eq:single_entrance}
+					\sum_{i \in \mathcal{N}} x_{ij} = 1 
+					\qquad 
+					\forall j \in \mathcal{N}_0
+				\end{equation}
+
+			\item[Bilanciamento del flusso]
+				Questo vincolo modella il bilanciamento del flusso nella rete stradale imponendo che la differenza tra la quantità di merce $f_{ij}$ che arriva ad un cliente e che ne esce deve essere pari alla domanda di merce $q_i$ del cliente.
+				\begin{equation}
+					\label{eq:flux_balance}
+					\sum_{i \in \mathcal{N}}f_ik - \sum_{j \in \mathcal{N}_0}f_kj = q_k  
+					\qquad
+					\forall k \in \mathcal{N}_0
+				\end{equation}
+
+			\item[Vincoli sulla capacità di carico]
+				Questi vincoli impongono semplicemente che la quantità di merce caricata in ogni veicolo non può superare la sua capacità di carico.
+				\begin{equation}
+					\label{eq:capacity_constraint}
+					q_j x_{ij} \leq f_{ij} \leq (Q - q_i)x_{ij} 
+					\qquad
+					\forall (i,j) \in \mathcal{A} 
+				\end{equation}
+
+			\item[Vincolo di consistenza temporale]
+				Il vincolo impone che le variabili decisionali relative agli istanti di arrivo dei veicoli ai nodi siano consistenti con i tempi di servizio ed i tempi di percorrenza. In particolare, se l’arco $(i,j)$ viene selezionato per fare parte del set delle rotte, l’istante di arrivo al nodo \emph{j-esimo} deve essere successivo all’istante di arrivo al nodo i-esimo a cui viene sommato il relativo tempo di servizio ed il tempo di percorrenza dell’arco alla velocità selezionata.
+				\begin{equation}
+					\label{eq:temporal_consistency}
+					y_i + t_i + 
+					\sum_{r \in \mathcal{R}} \left(\frac{d_{ij}}{\overline v^r} z_{ij}^{r}\right) - 
+					y_j \leq
+					M_{ij}(1 - x_{ij})
+					\qquad
+					\forall i \in \mathcal{N}, j \in \mathcal{N}_0, i \neq j
+				\end{equation}
+
+				$$M_{ij} = \max \left\{ 0, b_i + t_i + \frac{d_{ij}} {l_{ij}} - a_j\right\}$$
+
+			\item[Vincolo sulle finestre temporali]
+				Questo vincolo impone che, ad ogni cliente, il veicolo che lo deve servire arrivi entro il tempo $a_i$ e non oltre il tempo $b_i$.
+				\begin{equation}
+					\label{eq:time_windows}
+					a_i \leq y_i \leq b_i
+					\qquad
+					\forall i \in \mathcal{N}_0
+				\end{equation}
+
+			\item[Vincolo di lunghezza temporale delle rotte]
+				Il vincolo impone riguarda la lunghezza temporale complessiva di ogni rotta (veicolo/autista) ed impone che il tempo di arrivo ad ogni cliente $j$ ($y_j$), considerando anche il tempo necessario a servirlo ($t_j$), qualora questo sia l'ultimo ad essere servito ($x_{j0}=1$), non superi la massima lunghezza temporale consentita.
+				\begin{equation}
+					\label{eq:total_temporal_constraint}
+					y_j + t_j - s_j +
+					\sum_{r \in \mathcal{R}}\left(\frac{d_{j0}}{\overline v^r}z_{ij}^{r}\right)
+					\leq L(1-x_{j0})
+					\qquad 
+					\forall j \in \mathcal{N}_0
+				\end{equation} 
+
+			\item[Vincolo di velocità]
+				Questa relazione impone i vincoli sulle velocità assumibili specificando la relazione che intercorre tra la variabile decisionale $z_{ij}^r$ e la variabile decisionale $x_{ij}$.
+				\begin{equation}
+					\label{eq:speed_level_constraint}
+					\sum_{r \in \mathcal{R}}z_{ij}^{r} = x_{ij} 
+					\qquad
+					\forall (i,j) \in \mathcal{A}
+				\end{equation}
+		\end{description}
+
+		Inoltre le variabili decisionali del modello devono soddisfare le seguenti condizioni di dominio:
+		\begin{equation}
+			\label{eq:assignment_var}
+			x_{ij} \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}
+		\end{equation}
+
+		\begin{equation}
+			\label{eq:assignment_var}
+			f_{ij} \geq 0 \qquad \forall (i,j) \in \mathcal{A}
+		\end{equation}
+
+		\begin{equation}
+			\label{eq:assignment_var}
+			y_i \geq 0 \qquad \forall i \in \mathcal{N}_0
+		\end{equation}
+
+		\begin{equation}
+			\label{eq:assignment_var}
+			s_i \geq 0 \qquad \forall i \in \mathcal{N}_0
+		\end{equation}
+
+		\begin{equation}
+			\label{eq:assignment_var}
+			z_{ij}^r \in \{0,1\} \qquad \forall (i,j) \in \mathcal{A}, r \in \mathcal{R}
+		\end{equation}
+
+
+	% section vincoli (end)
