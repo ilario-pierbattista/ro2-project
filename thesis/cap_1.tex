@@ -42,13 +42,21 @@ Per questioni esemplificative si assume che la flotta di veicoli sia omogenea e 
 		\item Un \emph{grafo}, $G = (N, A)$, e una coppia di insiemi: $N$ è un insieme finito e non vuoto di elementi, mentre $A$ è un insieme finito di coppie di elementi distinti di $N$.
 		$N$ è detto insieme dei \emph{nodi}, e usualmente viene indicato mediante i primi $n = |N|$ numeri naturali: $N = \{1 , 2 , \cdots , n \}$. L’insieme $A$, detto insieme degli \emph{archi}, è in generale indicato con $A = \{ a_1 , a_2 , \cdots , a_m \}$ ($m = |A|$). 
 		Nel seguito un arco verrà indicato principalmente da una coppia di nodi $(i,j)$, piuttosto che dal nome $a_k$.
-		<<Immagine esempio di grafo. Commento: Esempi di grafi>>
-		%% @TODO Aggiungere immagine esempio
+		\begin{figure}[H]
+			\centering
+			\includegraphics[keepaspectratio=true,scale=0.3]{img/esempio_grafi.png}
+			\caption{Esempi di grafi}
+			\label{fig:graph_example}
+		\end{figure}
 
 		\item Un grafo si definisce \emph{orientato} se tutti gli archi $(i,j) \in A$ sono orientati, ovvero le coppie $(i,j)$ sono ordinate; un grafo si definisce \emph{non orientato} o \emph{simmetrico} se tutti gli archi $(i,j) \in A$ non sono orientati. 
 		Solitamente, per rimarcare la differenza tra i due casi, i nodi di un grafo simmetrico vengono chiamati \emph{vertici}, ed il grafo si indica con $G = (V,E)$, essendo $E$ l’insieme dei lati.Si definisce grafo \emph{completo} quello in cui esistono archi che connettono tra loro tutti i nodi.
-		<<Immagine equivalenza archi orientati e non. Commento: Equivalenza tra un arco non orientato ed una coppia di archi orientati>>
-		%% @TODO immagini
+		\begin{figure}[H]
+			\centering
+			\includegraphics[keepaspectratio=true,scale=0.6]{img/equivalenza_archi.png}
+			\caption{Equivalenza tra un arco non orientato ed una coppia di archi orientati}
+			\label{fig:arc_equivalence}
+		\end{figure}		
 
 		\item Una \emph{rete} è un grafo ai cui nodi e/o archi sono associati dei pesi. Tali pesi possono avere significati diversi a seconda del contesto; ad esempio, nel caso del trasporto di merce da parte di un veicolo, i pesi associati agli archi possono rappresentare la distanza (in km) da un punto di consegna ad un altro, mentre i pesi associati ai nodi possono rappresentare la quantità di merce richiesta dal cliente.
 
