@@ -1,0 +1,20 @@
+MODEL:
+! A 6 Warehouse 8 Vendor Transportation Problem;
+SETS:
+  WAREHOUSES / WH1 WH2 WH3 WH4 WH5 WH6/: CAPACITY;
+  VENDORS / V1 V2 V3 V4 V5 V6 V7 V8/   : DEMAND;
+  LINKS( WAREHOUSES, VENDORS): COST, VOLUME;
+ENDSETS
+! The objective;
+  MIN = @SUM( LINKS( I, J):
+   COST( I, J) * VOLUME( I, J));
+! The demand constraints;
+  @FOR( VENDORS( J):
+   @SUM( WAREHOUSES( I): VOLUME( I, J)) =
+    DEMAND( J));
+! The capacity constraints;
+  @FOR( WAREHOUSES( I):
+   @SUM( VENDORS( J): VOLUME( I, J)) <=
+    CAPACITY( I));
+! [...];
+END
