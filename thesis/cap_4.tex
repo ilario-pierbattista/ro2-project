@@ -36,24 +36,24 @@
 		\end{minted}
 		\captionof{listing}{Il problema dei traporti in LINGO \label{code:lingo_example}}
 
-		\begin{minted}{ampl}
-			set ORIG;   # origins
-			set DEST;   # destinations
+		\begin{amplcode}
+			set ORIG;						# origins
+			set DEST;						# destinations
 
-			param supply {ORIG} >= 0;   # amounts available at origins
-			param demand {DEST} >= 0;   # amounts required at destinations
+			param supply {ORIG} >= 0;		# amounts available at origins
+			param demand {DEST} >= 0;		# amounts required at destinations
 
 			check: sum {i in ORIG} supply[i] = sum {j in DEST} demand[j];
-
-			param cost {ORIG,DEST} >= 0;   # shipment costs per unit
-
-			var Trans {ORIG,DEST} >= 0;    # units to be shipped
+			
+			param cost {ORIG,DEST} >= 0;	# shipment costs per unit
+			
+			var Trans {ORIG,DEST} >= 0;		# units to be shipped
 
 			minimize Total_Cost:sum {i in ORIG, j in DEST} cost[i,j] * Trans[i,j];
-
 			subject to Supply {i in ORIG}:sum {j in DEST} Trans[i,j] = supply[i];
 			subject to Demand {j in DEST}:sum {i in ORIG} Trans[i,j] = demand[j];
-		\end{minted}
+
+		\end{amplcode}
 		\captionof{listing}{Il problema dei traporti in AMPL \label{code:ampl_example}}
 
 		Un altro vantaggio considerevole dell’AMPL è il supporto a decine di risolutori, sia open source che a pagamento, tra cui i più i famosi CBC, CPLEX e MINOS.
@@ -65,24 +65,24 @@
 			Questa architettura modulare consente di disaccoppiare con estrema semplicità la formulazione del modello e l’immissione dei dati.
 
 			I comandi da immettere nella console di AMPL all’atto esecuzione saranno semplicemente:	
-			\begin{minted}{ampl}
-				ampl: model ‘file_del_modello.mod’;
-				ampl: data ‘file_dei_dati.dat’;
+			\begin{amplcode}
+				ampl: model 'file_del_modello.mod';
+				ampl: data 'file_dei_dati.dat';
 				ampl: solve;
-			\end{minted}
+			\end{amplcode}
 
 			Il risolutore di default è MINOS che non supporta problemi di PLI o di PLM. Sarà necessario specificare manualmente il risolutore CPLEX, prima di eseguire il comando \texttt{solve}:
 
-			\begin{minted}{ampl}
+			\begin{amplcode}
 				ampl: option solver cplex;
-			\end{minted}
+			\end{amplcode}
 
 			La struttura del file contenente il modello è molto semplice. 
 			Si comincia con la dichiarazione degli insiemi (\texttt{set}) e dei parametri (\texttt{param}). Quindi si andranno a definire le variabili decisionali (\texttt{var}) e la funzione obiettivo. Alla fine sarà presente l’elenco dei vincoli ai quali le variabili decisionali sono soggette.
 
 			Per dichiarare un insieme, struttura dati equivalente al corrispondente algebrico,  è sufficiente far seguire alla parola chiave \texttt{set} l’identificatore scelto per l’insieme stesso. Sono supportate tutte le operazioni insiemistiche già in fase di dichiarazione: infatti è possibile dichiarare l’insieme \texttt{path} come prodotto cartesiano di \texttt{cities} ancor prima di aver definito il reale contenuto dell’insieme \texttt{cities}.
 
-			\begin{minted}{ampl}
+			\begin{amplcode}
 				set cities;				# Insieme dei nodi nella rete stradale
 				set depot within cities;# Nodo deposito
 				set clients within cities := cities diff depot;	
@@ -90,11 +90,11 @@
 				set speed_levels;		# Insieme dei livelli assumibili di velocita
 				set path := cities cross cities;	
 										# Insieme degli archi			
-			\end{minted}
+			\end{amplcode}
 
 			In seguito vengono dichiarati i parametri, che unitamente agli insiemi identificano la specifica istanza del problema di ottimizzazione. Sono molto numerosi e vengono raggruppati in base al contesto di competenza.
 
-			\begin{minted}{ampl}
+			\begin{amplcode}
 				### PARAMETRI GENERALI ###
 
 				param ga > 0;			# Costante d'accelerazione gravitazionale
@@ -112,107 +112,110 @@
 
 				### PARAMETRI RELATIVI AI VEICOLI ###
 
-				param fleet_dim > 0 integer;	# Numero di veicoli appartenenti alla flotta
+				param fleet_dim > 0 integer;	
+										# Numero di veicoli appartenenti alla flotta
 				param gvw 'gross vehicle weight' > 0;				
-									# Massa a pieno carico in kg
+										# Massa a pieno carico in kg
 				param uvw 'unladen vehicle weight' > 0;
-									# Massa a vuoto in kg
+										# Massa a vuoto in kg
 				param max_load := gvw - uvw;	# Carico massimo dei veicoli in kg
 				param rrc 'rolling resistence coefficient' > 0;
-									# Coefficiente di resistenza al rotolamento
+										# Coefficiente di resistenza al rotolamento
 				param drc 'drag resistence coefficient' > 0;
-									# Coefficiente di penetrazione dell'aria
+										# Coefficiente di penetrazione dell'aria
 				param fsa 'frontal surface area' > 0;
-									# Area frontale del veicolo in mq
+										# Area frontale del veicolo in mq
 				param beta 'vehicle constant' := 0.5 * drc * fsa * ad;										# Parametro caratteristico dei veicoli
 											
 											
 				### PARAMETRI RELATIVI ALLE CITTA ###
 
-				param d{cities,cities} > 0; 	# Distanza tra due citta
-				param angle{cities,cities};		# Pendenza media del tratto di strada in radianti
+				param d{cities,cities} > 0; 	
+										# Distanza tra due citta
+				param angle{cities,cities};		
+										# Pendenza media del tratto di strada in radianti
 				param alpha{i in cities, j in cities} := 
 					ga * (sin(angle[i,j]) + rrc * cos(angle[i,j]));
-									# Parametri caratteristici degli archi
+										# Parametri caratteristici degli archi
 
 
 				### PARAMETRI DI SPEDIZIONE ###
 
-				param twlb{cities} >= 0;		# Time Window Lower Bound
-				param twub{cities} >= 0;		# Time Window Upper Bound
-									# Finestre temporali (in ore)
-				param st{cities} >= 0;		# Tempo di servizio dei clienti (in ore)
-				param q{cities} >= 0;		# Domanda
+				param twlb{cities} >= 0;# Time Window Lower Bound
+				param twub{cities} >= 0;# Time Window Upper Bound
+										# Finestre temporali (in ore)
+				param st{cities} >= 0;	# Tempo di servizio dei clienti (in ore)
+				param q{cities} >= 0;	# Domanda
 
 
 				### PARAMETRI RELATIVI AGLI AUTISTI ###
 
-				param driver_wage > 0; 		# Salario orario dell'autista (in euro/h)
+				param driver_wage > 0; 	# Salario orario dell'autista (in euro/h)
 
 
 				### PARAMETRI RELATIVI ALLE VELOCITA ###
 
 				param slb 'speed lower bound' >= 0;
 				param sub 'speed upper bound' >= 0;
-									# Limiti globali di velocita (in metri/ora)
+										# Limiti globali di velocita (in metri/ora)
 				param si 'speed intervals number' := card(speed_levels);
-									# Numero di intervalli di suddivisione delle 
-									# velocita
+										# Numero di intervalli di suddivisione delle 
+										# velocita
 				param siw 'delta speed' := (sub - slb)/si;
-									# Ampiezza dell'intervallo di velocita
+										# Ampiezza dell'intervallo di velocita
 				param speeds{r in speed_levels} := slb + (siw*(r-1) + siw*r)/2;
-									# Velocita medie assumibili
+										# Velocita medie assumibili
 		
-			\end{minted}
+			\end{amplcode}
 
 			Segue la definizione delle variabili decisionali del modello e della funzione obiettivo.
 
-			\begin{minted}{ampl}
+			\begin{amplcode}
 				var X{cities, cities} logical;
 				var F{cities, cities} >= 0;
 				var Z{speed_levels, cities, cities} logical;
 				var Tourtime{j in clients} >= 0;	
-									# Tempo speso nel seguire l’intera rotta che visita 
-									# per ultima la citta j prima di tornare al
+										# Tempo speso nel seguire l’intera rotta che visita 
+										# per ultima la citta j prima di tornare al
 				# deposito
 				var Arrivaltime{j in cities} >= 0;
-									# Tempo di arrivo del veicolo al cliente j
+										# Tempo di arrivo del veicolo al cliente j
 													
 				### OBJECTIVE ###
 
 				minimize cost:
-					(fc + ghgfe * ec) *		# Costo per ogni litro di carburante
-									# (acquisto + emissioni) 
+					(fc + ghgfe * ec) *	# Costo per ogni litro di carburante
+										# (acquisto + emissioni) 
 					1/(diesel_energy * engine_efficiency) *
-									# Fattore di conversione da energia
-									# a litri di carburante necessari
-					(				# Energia totale necessaria
+										# Fattore di conversione da energia
+										# a litri di carburante necessari
+					(					# Energia totale necessaria
 						sum {(i,j) in path} (
 							alpha[i,j] * d[i,j] * uvw * X[i,j]
-									# Energia necessaria al movimento del
-									# veicolo senza carico
+										# Energia necessaria al movimento del
+										# veicolo senza carico
 						) +
 						sum {(i,j) in path} (
 							alpha[i,j] * d[i,j] * F[i,j]
-									# Energia necessaria al movimento del
-									# carico (senza considerare il peso 
-									# del veicolo)
+										# Energia necessaria al movimento del
+										# carico (senza considerare il peso 
+										# del veicolo)
 						) + 
 						sum {(i,j) in path} (
 							d[i,j] * beta * (
 								sum {r in speed_levels} (
 									((speeds[r]/3600)^2) * Z[r,i,j] 
 								)
-							)		# Energia dissipata dalla resistenza 
-									# dell'aria
+							)			# Energia dissipata dalla resistenza 
+										# dell'aria
 						)
 					) + 
 					sum {c in clients} (driver_wage * Tourtime[c]);
-			\end{minted}
+			\end{amplcode}
 
 			In ultimo vi è l’elencazione di tutti i vincoli a cui sono sottoposte le variabili decisionali. È interessante notare che ad ognuno di essi vi è associato un identificatore a scelta dell’utente. Ciò arricchisce di molto l’espressività del linguaggio e risulta particolarmente utile in fase di debugging.
 
-			\begin{minted}{ampl}				
+			\begin{amplcode}
 				subject to fleet_usage:
 					sum {c in clients,dep in depot} X[dep,c] = fleet_dim;
 									# Tutti i veicoli della flotta devono essere usati
@@ -260,7 +263,7 @@
 				subject to speed_level_constraint {(i,j) in path}:
 					sum {r in speed_levels} (Z[r,i,j]) = X[i,j];
 									# Vincolo sulla velocita assumibile
-			\end{minted}
+			\end{amplcode}
 
 		% section implementazione (end)
 

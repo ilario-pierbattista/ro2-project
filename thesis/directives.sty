@@ -74,3 +74,12 @@
 % Example tag definitions
 \theoremstyle{definition}
 \newtheorem{example}{Esempio}[section]
+
+% Standard option for ampl code listings
+% Queste impostazioni generano la creazione di un nuovo tipo di blocco:
+% chiamato "amplcode"
+% CFR: Documentazione di minted
+\newminted{ampl}{
+	tabsize=4,
+	obeytabs=true,
+}
