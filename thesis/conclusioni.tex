@@ -1,0 +1,12 @@
+% !TEX root=index.tex
+\chapter{Conclusioni}\label{ch:conclusioni}
+	Abbiamo presentato, modellato in AMPL e analizzato sperimentalmente il \emph{Pollution Routing Problem}, una variante del conosciutissimo \emph{Vehicle Routing Problem}, il quale considera, tra i tanti fattori, anche  l’importante impatto ambientale che hanno le emissioni di $CO_2$.
+
+	I risultati degli esperimenti su delle istanze realistiche hanno permesso di raggiungere le seguenti conclusioni:
+	\begin{itemize}
+		\item Il prezzo del carburante e la paga oraria degli autisti sono costi molto più alti del costo delle emissioni, che influisce in misura molto minore sulla soluzione finale. Tuttavia, il modello presentato fornisce un efficace strumento di analisi per la valutazione di eventuali incentivi per la riduzione delle emissioni.
+		\item A differenza di come si è portati a pensare comunemente, l’ottimizzazione della distanza non implica necessariamente la minimizzazione dei costi del carburante o degli autisti. D’altro canto, una soluzione che minimizza i costi non implica una minimizzazione energetica. Anzi, solitamente produce una soluzione nella quale è consumata una maggior quantità di energia al fine di abbattere i costi degli autisti.
+		\item Affinché la formulazione sia realmente applicabile ad un caso di interesse pratico sono necessari degli ulteriori raffinamenti. Ad esempio, andrebbero introdotti dei vincoli che tengano conto del massimo tempo di guida di un’autista per giornata e di eventuali soste; ugualmente, bisognerebbe modellare anche il tipo di tratta che si sta compiendo (es.: \emph{urbana} o \emph{extra-urbana}).
+		\item Generalmente l’impiego di un minor numero di veicoli implica un minor consumo di carburante ed un indice di utilizzo maggiore della capacità di carico del veicolo.
+		\item L’efficienza energetica dei motori ha un grande impatto sul consumo di carburante e, di conseguenza, sulla quantità di emissioni prodotte. L’utilizzo di veicoli più efficienti ovviamente migliora il valore ottimo della soluzione, ma solo parzialmente, essendo il costo degli autisti una componente dominante del costo totale, che può essere abbassato solamente elaborando delle rotte percorribili in minor tempo. 
+	\end{itemize}
