@@ -42,7 +42,7 @@
 
 	\section{Risultati dell’istanza con un veicolo e senza time window}
 	\label{sec:istanza_singolo_veicolo_no_time_window}
-		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington in modo che \ref{table:distanza_citta} sia la tabella delle distanze da una città all’altra.
+		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington. In tabella \ref{table:distanza_citta} sono riportate le distanze da una città all’altra.
 
 		\vspace{0.5cm}
 		\begin{table}[H]
@@ -66,11 +66,26 @@
 				\multicolumn{1}{b{1.8cm}|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
 				\multicolumn{1}{b{1.8cm}|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
 			\end{tabular}}
-			\caption{Distanza tra le città (m)}
+			\caption{Distanza tra le città (in metri)}
 			\label{table:distanza_citta}
 		\end{table}
 
 		Si consideri inoltre che si ha a disposizione un solo veicolo che, a partire dalla città di  Stockport, deve visitare tutte le altre e farvi ritorno, minimizzando il costo complessivo del problema di PRP associato.
+
+		TABELLA XIJ
+		TABELLA FIJ
+		TABELLE ZIJR
+		ArrivalTime
+		costo, tourtime complessivo
+
+		Tale istanza è stata estratta dall’articolo \cite{Laporte11}. Si può notare come la soluzione sia compatibile con quella raffigurata dagli autori del paper (vedi figura \ref{fig:map_laporte}). 
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[keepaspectratio=true]{img/map_solution_laporte.jpg}
+			\caption{Soluzione dell'istanza analizzata da Laporte \cite{Laporte11}}
+			\label{fig:map_laporte}
+		\end{figure}		
 		
 % Tabelle soluzione @TODO rimuovere
 		\input{solutions}
