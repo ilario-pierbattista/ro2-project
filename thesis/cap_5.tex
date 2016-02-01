@@ -66,8 +66,8 @@
 				\multicolumn{1}{b{1.8cm}|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
 				\multicolumn{1}{b{1.8cm}|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
 			\end{tabular}}
-			\caption{Distanza tra le città (in metri)}
 			\label{table:distanza_citta}
+			\caption{Distanza tra le città (in metri)}
 		\end{table}
 
 		Si consideri inoltre che si ha a disposizione un solo veicolo che, a partire dalla città di  Stockport, deve visitare tutte le altre e farvi ritorno, minimizzando il costo complessivo del problema di PRP associato.
@@ -83,7 +83,7 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[keepaspectratio=true]{img/map_solution_laporte.jpg}
-			\caption{Soluzione dell'istanza analizzata da Laporte \cite{Laporte11}}
+			\caption{Soluzione dell'istanza con un veicolo senza time window}
 			\label{fig:map_laporte}
 		\end{figure}
 
@@ -111,13 +111,14 @@
 
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_1_xij}
+			\caption{Valori degli $x_{ij}$ per l'istanza con un veicolo senza time window}
 		\end{table}
 
 
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_1_f}
 			\begin{tabular}{rcccccccccc}
 
 				\toprule
@@ -137,34 +138,36 @@
 				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1200 & 0\\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_1_f}
+			\caption{Quantità di merce traportata $f_{ij}$ per l'istanza con un veicolo senza time window}
 		\end{table}
 
-		\begin{minipage}[t]{0.49\textwidth}
-			\begin{table}[H]
-				\tiny
-				\centering
-				\label{table:instance_1_z_1}
-				\begin{tabular}{p{1cm} cccccccccc}
 
-					\toprule
-					& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
+		\begin{table}[H]
+			\small
+			\centering
+			\begin{tabular}{rcccccccccc}
 
-					\midrule
+				\toprule
+				& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
 
-					Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Derby & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Eastwood & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-					Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-					Mansfield & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-					Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-					Sheffield & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-					Stockport & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Stoke on Trent & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-					\bottomrule
-				\end{tabular}
-			\end{table}	
-		\end{minipage}
+				\midrule
+
+				Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Derby & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Eastwood & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+				Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+				Mansfield & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+				Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+				Sheffield & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				Stockport & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Stoke on Trent & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+				\bottomrule
+			\end{tabular}
+			\label{table:instance_1_z_1}
+			\caption{Valori di $z_{ij}^1$ per l'istanza con un veicolo senza time window}
+		\end{table}	
 		% \begin{minipage}[t]{0.49\textwidth}
 		% 	\begin{table}[H]
 		% 	\tiny
@@ -217,12 +220,13 @@
 				\textbf{Tourtime} & 12.2145 ore \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_1_totale}
+			\caption{Tempi di arrivo, costo totale e tourtime complessivo per l'istanza con un veicolo senza time window}
 		\end{table}
 
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_2_x}
 			\begin{tabular}{rcccccccccc}
 				\toprule
 				& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{\emph{Stockport}} & \rot{Stoke on Trent} & \rot{Warrington} \\
@@ -242,12 +246,13 @@
 
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_2_xij}
+			\caption{Valori degli $x_{ij}$ per l'istanza con due veicoli senza time window}
 		\end{table}
 
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_2_f}
 			\begin{tabular}{rcccccccccc}
 
 				\toprule
@@ -267,35 +272,38 @@
 				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 500 & 0 & 0 \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_2_f}
+			\caption{Quantità di merce traportata $f_{ij}$ per l'istanza con due veicoli senza time window}
 		\end{table}
 
-		\begin{minipage}[t]{0.49\textwidth}
-			\begin{table}[H]
-				\tiny
-				\centering
-				\label{table:instance_2_z_1}
-				\begin{tabular}{p{1cm} cccccccccc}
 
-					\toprule
-					& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
+		\begin{table}[H]
+			\small
+			\centering
+			\begin{tabular}{rcccccccccc}
 
-					\midrule
+				\toprule
+				& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
 
-					Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Derby & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-					Eastwood & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-					Mansfield & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-					Sheffield & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-					Stockport & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-					Stoke on Trent & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-					Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				\midrule
 
-					\bottomrule
-				\end{tabular}
-			\end{table}	
-		\end{minipage}
+				Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Derby & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+				Eastwood & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+				Mansfield & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+				Sheffield & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+				Stockport & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+				Stoke on Trent & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+
+				\bottomrule
+			\end{tabular}
+			\label{table:instance_1_z_1}
+			\caption{Valori di $z_{ij}^1$ per l'istanza con due veicoli senza time window}
+		\end{table}	
+
 		% \begin{minipage}[t]{0.49\textwidth}
 		% 	\begin{table}[H]
 		% 	\tiny
@@ -326,7 +334,6 @@
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_1_arrival}
 			\begin{tabular}{rc}
 
 				\toprule
@@ -349,6 +356,8 @@
 				\textbf{Tourtime (Warrington)} & 5.79818 ore \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_2_totale}
+			\caption{Tempi di arrivo, costo totale e tourtime complessivo per l'istanza con due veicoli senza time window}
 		\end{table}
 
 
@@ -358,7 +367,6 @@
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_3_x}
 			\begin{tabular}{rcccccccccc}
 				\toprule
 				& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{\emph{Stockport}} & \rot{Stoke on Trent} & \rot{Warrington} \\
@@ -376,13 +384,14 @@
 				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{red!25}1 & 0 \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_3_xij}
+			\caption{Valori degli $x_{ij}$ per l'istanza con tre veicoli senza time window}
 		\end{table}
 
 
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_3_f}
 			\begin{tabular}{rcccccccccc}
 
 				\toprule
@@ -402,34 +411,36 @@
 				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2100 & 0 \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_3_f}
+			\caption{Quantità di merce traportata $f_{ij}$ per l'istanza con tre veicolo senza time window}
 		\end{table}
 
-		\begin{minipage}[t]{0.49\textwidth}
-			\begin{table}[H]
-				\tiny
-				\centering
-				\label{table:instance_3_z_1}
-				\begin{tabular}{p{1cm} cccccccccc}
+		\begin{table}[H]
+			\small
+			\centering
+			\begin{tabular}{rcccccccccc}
 
-					\toprule
-					& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
+				\toprule
+				& \rot{Chester} & \rot{Derby} & \rot{Eastwood} & \rot{Liverpool} & \rot{Mansfield} & \rot{Preston} & \rot{Sheffield} & \rot{Stockport} & \rot{Stoke on Trent} & \rot{Warrington} \\
 
-					\midrule
+				\midrule
 
-					Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Derby & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-					Eastwood & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-					Mansfield & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-					Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-					Sheffield & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-					Stockport & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\
-					Stoke on Trent & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-					Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-					\bottomrule
-				\end{tabular}
-			\end{table}	
-		\end{minipage}
+				Chester & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Derby & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				Eastwood & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Liverpool & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+				Mansfield & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+				Preston & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				Sheffield & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+				Stockport & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\
+				Stoke on Trent & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+				Warrington & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+				\bottomrule
+			\end{tabular}
+			\label{table:instance_3_z_1}
+			\caption{Valori di $z_{ij}^1$ per l'istanza con tre veicoli senza time window}
+		\end{table}	
+
 		% \begin{minipage}[t]{0.49\textwidth}
 		% 	\begin{table}[H]
 		% 	\tiny
@@ -460,7 +471,6 @@
 		\begin{table}[H]
 			\small
 			\centering
-			\label{table:instance_1_arrival}
 			\begin{tabular}{rc}
 
 				\toprule
@@ -484,11 +494,11 @@
 				\textbf{Tourtime (Sheffield)} & 6.22364 ore \\
 				\bottomrule
 			\end{tabular}
+			\label{table:instance_3_totale}
+			\caption{Tempi di arrivo, costo totale e tourtime complessivo per l'istanza con tre veicoli senza time window}
 		\end{table}
 
 		% ======================================================================
 
-
-		
 % Tabelle soluzione @TODO rimuovere
 		\input{solutions}
