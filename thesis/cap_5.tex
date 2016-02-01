@@ -42,22 +42,22 @@
 
 	\section{Risultati dell’istanza con un veicolo e senza time window}
 	\label{sec:istanza_singolo_veicolo_no_time_window}
-		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington in modo che \ref{table:distanza_citta} sia la tabella delle distanze da una città all’altra:
+		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington in modo che \ref{table:distanza_citta} sia la tabella delle distanze da una città all’altra.
 
-
-		\begin{sidewaystable}
-			% \centering
+		\begin{table}
+			\centering
+			\small
 			\caption{Distanza tra le città (m)}
 			\label{table:distanza_citta}
-
+			\resizebox{\columnwidth}{!}{
 			\begin{tabular}{| @{} r p{1.5cm} p{1cm} p{1.5cm} p{1.5cm} p{1.3cm} p{1.5cm} p{1.2cm} p{1.5cm} p{1cm} p{2cm} @{} |}
 				\toprule 
 
-				& Stoke on Trent & Derby  & Eastwood & Mansfield & Sheffield & Stockport & Preston & Liverpool & Chester & Warrington \\ 
+				& Stoke-on-Trent & Derby  & Eastwood & Mansfield & Sheffield & Stockport & Preston & Liverpool & Chester & Warrington \\ 
 
 				\midrule
 				
-				\multicolumn{1}{| b{1.8cm}|}{Stoke on Trent} & -            & 56400  & 80200    & 90400     & 76300     & 69900     & 105000  & 91000     & 72000   & 59600      \\
+				\multicolumn{1}{| b{1.8cm}|}{Stoke-on-Trent} & -            & 56400  & 80200    & 90400     & 76300     & 69900     & 105000  & 91000     & 72000   & 59600      \\
 				\multicolumn{1}{| b{1.8cm}|}{Derby}        & 56400        & -      & 18900    & 37500     & 65200     & 86400     & 148000  & 136000    & 98500   & 104000     \\
 				\multicolumn{1}{| b{1.8cm}|}{Eastwood}     & 80200        & 18900  & -        & 19400     & 51200     & 85900     & 178000  & 143000    & 102000  & 116000     \\
 				\multicolumn{1}{| b{1.8cm}|}{Mansfield}    & 90400        & 37500  & 19400    & -         & 38700     & 80100     & 192000  & 173000    & 108000  & 115000     \\
@@ -67,9 +67,10 @@
 				\multicolumn{1}{| b{1.8cm}|}{Liverpool}    & 91000        & 136000 & 143000   & 173000    & 129000    & 67100     & 54800   & -         & 55700   & 29500      \\
 				\multicolumn{1}{| b{1.8cm}|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
 				\multicolumn{1}{| b{1.8cm}|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
-			\end{tabular}
-		\end{sidewaystable}
-		
+			\end{tabular}}
+		\end{table}
 
-		% Tabelle soluzione @TODO rimuovere
+		Si consideri inoltre che si ha a disposizione un solo veicolo che, a partire dalla città di  Stockport, deve visitare tutte le altre e farvi ritorno, minimizzando il costo complessivo del problema di PRP associato.
+		
+% Tabelle soluzione @TODO rimuovere
 		\input{solutions}
