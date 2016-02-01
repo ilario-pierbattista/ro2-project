@@ -12,49 +12,55 @@
 		Il punto forte di AMPL rispetto ad altri linguaggi di modellazione sta nella estrema somiglianza della sintassi alla notazione matematica dell’ottimizzazione di problemi. 
 		Questo fa sì che i problemi possano essere espressi in una forma estremamente compatta e leggibile (i listati \ref{code:lingo_example} e \ref{code:ampl_example} mettono a confronto la modellazione del classico problema dei trasporti in LINGO e in AMPL).
 
-		\begin{minted}[tabsize=4,obeytabs]{lingo}
-			MODEL:
-			! A 6 Warehouse 8 Vendor Transportation Problem;
-			SETS:
-			  WAREHOUSES / WH1 WH2 WH3 WH4 WH5 WH6/: CAPACITY;
-			  VENDORS / V1 V2 V3 V4 V5 V6 V7 V8/   : DEMAND;
-			  LINKS( WAREHOUSES, VENDORS): COST, VOLUME;
-			ENDSETS
-			! The objective;
-			  MIN = @SUM( LINKS( I, J):
-			   COST( I, J) * VOLUME( I, J));
-			! The demand constraints;
-			  @FOR( VENDORS( J):
-			   @SUM( WAREHOUSES( I): VOLUME( I, J)) =
-			    DEMAND( J));
-			! The capacity constraints;
-			  @FOR( WAREHOUSES( I):
-			   @SUM( VENDORS( J): VOLUME( I, J)) <=
-			    CAPACITY( I));
-			! [...];
-			END
-		\end{minted}
-		\captionof{listing}{Il problema dei traporti in LINGO \label{code:lingo_example}}
+		\begin{listing}[H]
+			\begin{minted}[tabsize=4,obeytabs]{lingo}
+				MODEL:
+				! A 6 Warehouse 8 Vendor Transportation Problem;
+				SETS:
+				  WAREHOUSES / WH1 WH2 WH3 WH4 WH5 WH6/: CAPACITY;
+				  VENDORS / V1 V2 V3 V4 V5 V6 V7 V8/   : DEMAND;
+				  LINKS( WAREHOUSES, VENDORS): COST, VOLUME;
+				ENDSETS
+				! The objective;
+				  MIN = @SUM( LINKS( I, J):
+				   COST( I, J) * VOLUME( I, J));
+				! The demand constraints;
+				  @FOR( VENDORS( J):
+				   @SUM( WAREHOUSES( I): VOLUME( I, J)) =
+				    DEMAND( J));
+				! The capacity constraints;
+				  @FOR( WAREHOUSES( I):
+				   @SUM( VENDORS( J): VOLUME( I, J)) <=
+				    CAPACITY( I));
+				! [...];
+				END
+			\end{minted}
+			\caption{Il problema dei traporti in LINGO}
+			\label{code:lingo_example}
+		\end{listing}
 
-		\begin{amplcode}
-			set ORIG;						# origins
-			set DEST;						# destinations
+		\begin{listing}[H]
+			\begin{amplcode}
+				set ORIG;						# origins
+				set DEST;						# destinations
 
-			param supply {ORIG} >= 0;		# amounts available at origins
-			param demand {DEST} >= 0;		# amounts required at destinations
+				param supply {ORIG} >= 0;		# amounts available at origins
+				param demand {DEST} >= 0;		# amounts required at destinations
 
-			check: sum {i in ORIG} supply[i] = sum {j in DEST} demand[j];
-			
-			param cost {ORIG,DEST} >= 0;	# shipment costs per unit
-			
-			var Trans {ORIG,DEST} >= 0;		# units to be shipped
+				check: sum {i in ORIG} supply[i] = sum {j in DEST} demand[j];
+				
+				param cost {ORIG,DEST} >= 0;	# shipment costs per unit
+				
+				var Trans {ORIG,DEST} >= 0;		# units to be shipped
 
-			minimize Total_Cost:sum {i in ORIG, j in DEST} cost[i,j] * Trans[i,j];
-			subject to Supply {i in ORIG}:sum {j in DEST} Trans[i,j] = supply[i];
-			subject to Demand {j in DEST}:sum {i in ORIG} Trans[i,j] = demand[j];
+				minimize Total_Cost:sum {i in ORIG, j in DEST} cost[i,j] * Trans[i,j];
+				subject to Supply {i in ORIG}:sum {j in DEST} Trans[i,j] = supply[i];
+				subject to Demand {j in DEST}:sum {i in ORIG} Trans[i,j] = demand[j];
 
-		\end{amplcode}
-		\captionof{listing}{Il problema dei traporti in AMPL \label{code:ampl_example}}
+			\end{amplcode}
+			\caption{Il problema dei traporti in AMPL}
+			\label{code:ampl_example}
+		\end{listing}
 
 		Un altro vantaggio considerevole dell’AMPL è il supporto a decine di risolutori, sia open source che a pagamento, tra cui i più i famosi CBC, CPLEX e MINOS.
 		Ad oggi, secondo le statistiche fornite dal NEOS (web server risolutore della University of Wisconsin in Madison), AMPL risulta essere il linguaggio di modellazione matematica più utilizzato.
@@ -63,6 +69,7 @@
 	\section{Implementazione} % (fold)
 	\label{sec:implementazione}
 		In AMPL un problema di programmazione lineare viene modellato indipendentemente dalla singola istanza del problema. In un file, con estensione “mod”, viene scritto, utilizzando un linguaggio puramente dichiarativo, il modello matematico lasciandone liberi i singoli parametri. In un altro file, con estensione “dat”, vengono impostati i valori dei parametri dichiarati nel modello.
+		
 		Questa architettura modulare consente di disaccoppiare con estrema semplicità la formulazione del modello e l’immissione dei dati.
 
 		I comandi da immettere nella console di AMPL all’atto esecuzione saranno semplicemente:	
