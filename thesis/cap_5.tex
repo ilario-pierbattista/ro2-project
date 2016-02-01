@@ -44,23 +44,29 @@
 	\label{sec:istanza_singolo_veicolo_no_time_window}
 		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington in modo che \ref{table:distanza_citta} sia la tabella delle distanze da una città all’altra:
 
-		\begin{table}[]
-			\centering
+
+		\begin{sidewaystable}
+			% \centering
 			\caption{Distanza tra le città (m)}
 			\label{table:distanza_citta}
-			\begin{tabular}{@{}rcccccccccc@{}}
-				\toprule
-				                                  & Stokeontrent & Derby  & Eastwood & Mansfield & Sheffield & Stockport & Preston & Liverpool & Chester & Warrington \\ \midrule
-				\multicolumn{1}{r|}{Stokeontrent} & -            & 56400  & 80200    & 90400     & 76300     & 69900     & 105000  & 91000     & 72000   & 59600      \\
-				\multicolumn{1}{r|}{Derby}        & 56400        & -      & 18900    & 37500     & 65200     & 86400     & 148000  & 136000    & 98500   & 104000     \\
-				\multicolumn{1}{r|}{Eastwood}     & 80200        & 18900  & -        & 19400     & 51200     & 85900     & 178000  & 143000    & 102000  & 116000     \\
-				\multicolumn{1}{r|}{Mansfield}    & 90400        & 37500  & 19400    & -         & 38700     & 80100     & 192000  & 173000    & 108000  & 115000     \\
-				\multicolumn{1}{r|}{Sheffield}    & 76300        & 65200  & 51200    & 38700     & -         & 59400     & 119000  & 129000    & 60900   & 94400      \\
-				\multicolumn{1}{r|}{Stockport}    & 69900        & 86400  & 85900    & 80100     & 59400     & -         & 68200   & 67100     & 10700   & 37000      \\
-				\multicolumn{1}{r|}{Preston}      & 105000       & 148000 & 178000   & 192000    & 119000    & 68200     & -       & 54800     & 53400   & 49900      \\
-				\multicolumn{1}{r|}{Liverpool}    & 91000        & 136000 & 143000   & 173000    & 129000    & 67100     & 54800   & -         & 55700   & 29500      \\
-				\multicolumn{1}{r|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
-				\multicolumn{1}{r|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
+
+			\begin{tabular}{| @{} r p{1.5cm} p{1cm} p{1.5cm} p{1.5cm} p{1.3cm} p{1.5cm} p{1.2cm} p{1.5cm} p{1cm} p{2cm} @{} |}
+				\toprule 
+
+				& Stoke on Trent & Derby  & Eastwood & Mansfield & Sheffield & Stockport & Preston & Liverpool & Chester & Warrington \\ 
+
+				\midrule
+				
+				\multicolumn{1}{| b{1.8cm}|}{Stoke on Trent} & -            & 56400  & 80200    & 90400     & 76300     & 69900     & 105000  & 91000     & 72000   & 59600      \\
+				\multicolumn{1}{| b{1.8cm}|}{Derby}        & 56400        & -      & 18900    & 37500     & 65200     & 86400     & 148000  & 136000    & 98500   & 104000     \\
+				\multicolumn{1}{| b{1.8cm}|}{Eastwood}     & 80200        & 18900  & -        & 19400     & 51200     & 85900     & 178000  & 143000    & 102000  & 116000     \\
+				\multicolumn{1}{| b{1.8cm}|}{Mansfield}    & 90400        & 37500  & 19400    & -         & 38700     & 80100     & 192000  & 173000    & 108000  & 115000     \\
+				\multicolumn{1}{| b{1.8cm}|}{Sheffield}    & 76300        & 65200  & 51200    & 38700     & -         & 59400     & 119000  & 129000    & 60900   & 94400      \\
+				\multicolumn{1}{| b{1.8cm}|}{Stockport}    & 69900        & 86400  & 85900    & 80100     & 59400     & -         & 68200   & 67100     & 10700   & 37000      \\
+				\multicolumn{1}{| b{1.8cm}|}{Preston}      & 105000       & 148000 & 178000   & 192000    & 119000    & 68200     & -       & 54800     & 53400   & 49900      \\
+				\multicolumn{1}{| b{1.8cm}|}{Liverpool}    & 91000        & 136000 & 143000   & 173000    & 129000    & 67100     & 54800   & -         & 55700   & 29500      \\
+				\multicolumn{1}{| b{1.8cm}|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
+				\multicolumn{1}{| b{1.8cm}|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
 			\end{tabular}
-		\end{table}
+		\end{sidewaystable}
 		
