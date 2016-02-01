@@ -1,7 +1,6 @@
 % !TEX root=index.tex
 \chapter{Analisi dei risultati}\label{ch:cap_5}
-	Gli esperimenti sono stati condotti con dei dati di istanza che fossero il più possibile realistici. Sono state analizzate tre classi di problemi: a flotta unitaria e senza time window, a flotta multipla senza time window ed infine a flotta multipla con time window.
-	
+	Gli esperimenti sono stati condotti con dei dati di istanza che fossero il più possibile realistici. Sono state analizzate tre classi di problemi: a flotta unitaria e senza time window, a flotta multipla senza time window ed infine a flotta multipla con time window. \\*
 	Le seguenti istanze sono state risolte utilizzando un laptop equipaggiato con una CPU Intel i3 quadcore a 2,67GHz e 4Gb di RAM (non più di 10 minuti di calcolo ad istanza). È stata utilizzata la versione 12.6 di CPLEX mantenendo le impostazioni di default per la risoluzione di problemi di PLIM (\emph{Programmazione Lineare Intera Mista}).
 
 	\section{Presentazione dati statici ed ipotesi esemplificative}
@@ -30,3 +29,38 @@
 				$p$          & salario dell'autista (€/h)                       & 8,5    \\ \bottomrule
 			\end{tabular}
 		\end{table}
+
+		Per ciò che riguarda le pendenze dei tratti stradali, queste sono state approssimate tutte a 0.
+		Le motivazioni sono sostanzialmente due:
+
+		\begin{itemize}
+			\item raccogliere i dati riguardanti le quote dei tratti di strada che collegano i vari nodi è un’operazione lunga, la cui complessità esplode molto velocemente all’aumentare dei nodi.
+			\item i risultati espressi nel paper \cite{Laporte11} si riferiscono tutti ad istanze di problemi valutate facendo la medesima assunzione.
+		\end{itemize}
+
+		Inoltre, i \emph{service time} di tutti i nodi, per questioni semplificative, sono stati fissati tutti quanti a 30minuti. Questa assunzione non lede in alcun modo la generalità della trattazione.
+
+	\section{Risultati dell’istanza con un veicolo e senza time window}
+	\label{sec:istanza_singolo_veicolo_no_time_window}
+		Sono state prese in considerazione le seguenti città inglesi: Stokeontrent,	Derby, Eastwood, Mansfield,	Sheffield, Stockport, Preston, Liverpool, Chester e Warrington in modo che \ref{table:distanza_citta} sia la tabella delle distanze da una città all’altra:
+
+		\begin{table}[]
+			\centering
+			\caption{Distanza tra le città (m)}
+			\label{table:distanza_citta}
+			\begin{tabular}{@{}rcccccccccc@{}}
+				\toprule
+				                                  & Stokeontrent & Derby  & Eastwood & Mansfield & Sheffield & Stockport & Preston & Liverpool & Chester & Warrington \\ \midrule
+				\multicolumn{1}{r|}{Stokeontrent} & -            & 56400  & 80200    & 90400     & 76300     & 69900     & 105000  & 91000     & 72000   & 59600      \\
+				\multicolumn{1}{r|}{Derby}        & 56400        & -      & 18900    & 37500     & 65200     & 86400     & 148000  & 136000    & 98500   & 104000     \\
+				\multicolumn{1}{r|}{Eastwood}     & 80200        & 18900  & -        & 19400     & 51200     & 85900     & 178000  & 143000    & 102000  & 116000     \\
+				\multicolumn{1}{r|}{Mansfield}    & 90400        & 37500  & 19400    & -         & 38700     & 80100     & 192000  & 173000    & 108000  & 115000     \\
+				\multicolumn{1}{r|}{Sheffield}    & 76300        & 65200  & 51200    & 38700     & -         & 59400     & 119000  & 129000    & 60900   & 94400      \\
+				\multicolumn{1}{r|}{Stockport}    & 69900        & 86400  & 85900    & 80100     & 59400     & -         & 68200   & 67100     & 10700   & 37000      \\
+				\multicolumn{1}{r|}{Preston}      & 105000       & 148000 & 178000   & 192000    & 119000    & 68200     & -       & 54800     & 53400   & 49900      \\
+				\multicolumn{1}{r|}{Liverpool}    & 91000        & 136000 & 143000   & 173000    & 129000    & 67100     & 54800   & -         & 55700   & 29500      \\
+				\multicolumn{1}{r|}{Chester}      & 60900        & 146000 & 143000   & 169000    & 122000    & 82200     & 91400   & 29000     & -       & 34900      \\
+				\multicolumn{1}{r|}{Warrington}   & 59600        & 104000 & 116000   & 115000    & 94400     & 37000     & 49900   & 29500     & 32700   & -          \\ \bottomrule
+			\end{tabular}
+		\end{table}
+		
