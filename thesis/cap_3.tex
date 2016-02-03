@@ -62,13 +62,13 @@
 
 	$$\alpha_{ij}f_{ij}d_{ij}x_{ij} = \alpha_{ij}f_{ij}d_{ij}$$
 
-	Il termine $\beta v_{ij}^2 d_{ij} x_{ij}$ necessita invece di una procedura di linearizzazione vera e propria. Innanzi tutto si assume, per mantenere semplice sia la notazione che la formulazione del modello, che tutti gli archi hanno gli stessi limiti di velocità.
+	Il termine $\beta v_{ij}^2 d_{ij} x_{ij}$ necessita invece di una procedura di linearizzazione vera e propria. Innanzitutto si assume, per mantenere semplice sia la notazione che la formulazione del modello, che tutti gli archi hanno gli stessi limiti di velocità.
 
 	$$l_{ij} = l, u_{ij} = u \qquad \forall (i,j) \in \mathcal{A}$$
 
 	Si definisce inoltre un insieme di livelli di velocità $\mathcal{R} = {1,2,...,r,...}$, con i quali, una volta partizionato l’intervallo descritto dai limiti di velocità globali, si selezioneranno i vari range risultanti. La procedura di linearizzazione mirerà a rendere variabile decisionale, il \emph{livello della velocità} anzichè la velocità stessa.
 			
-	Per ogni $r$ in $\mathcal{R}$ esisterà un range di velocità $[l_r, u_r]$. Si noti che non si impongono particolari limitazioni nella scelta di tali range, oltre il fatto che essi devono costituire a tutti gli effetti un partizionamento di $[l, u]$. Per semplicità abbiamo scelto di utilizzare range di velocità della stessa ampiezza.
+	Per ogni $r$ in $\mathcal{R}$ esisterà un range di velocità $[l^r, u^r]$. Si noti che non si impongono particolari limitazioni nella scelta di tali range, oltre il fatto che essi devono costituire a tutti gli effetti un partizionamento di $[l, u]$. Per semplicità abbiamo scelto di utilizzare range di velocità della stessa ampiezza.
 
 	Per ogni intervallo, si calcolerà la velocità media (equazione \ref{eq:average_speed}) relativamente al livello $r$, che sarà quella effettivamente mantenuta lungo il tratto di strada.
 
@@ -143,7 +143,7 @@
 				Questo vincolo modella il bilanciamento del flusso nella rete stradale imponendo che la differenza tra la quantità di merce $f_{ij}$ che arriva ad un cliente e che ne esce deve essere pari alla domanda di merce $q_i$ del cliente.
 				\begin{equation}
 					\label{eq:flux_balance}
-					\sum_{i \in \mathcal{N}}f_ik - \sum_{j \in \mathcal{N}_0}f_kj = q_k  
+					\sum_{i \in \mathcal{N}}f_{ik} - \sum_{j \in \mathcal{N}_0}f_{kj} = q_k  
 					\qquad
 					\forall k \in \mathcal{N}_0
 				\end{equation}
@@ -185,7 +185,7 @@
 				\begin{equation}
 					\label{eq:total_temporal_constraint}
 					y_j + t_j - s_j +
-					\sum_{r \in \mathcal{R}}\left(\frac{d_{j0}}{\overline v^r}z_{ij}^{r}\right)
+					\sum_{r \in \mathcal{R}}\left(\frac{d_{j0}}{\overline v^r}z_{j0}^{r}\right)
 					\leq L(1-x_{j0})
 					\qquad 
 					\forall j \in \mathcal{N}_0
