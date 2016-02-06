@@ -1,0 +1,48 @@
+### DATA ###
+# |Veicoli| = 1
+# No time windows
+
+data;
+
+param fleet_dim := 1;	# numero puro
+
+## Time windows disabilitate e service time nulli
+
+param twlb := 
+	STOKEONTRENT	0 
+	DERBY 			0
+	EASTWOOD 		0
+	MANSFIELD 		0
+	SHEFFIELD 		0
+	STOCKPORT 		0
+	PRESTON 		0
+	LIVERPOOL		0
+	CHESTER 		0
+	WARRINGTON		0
+;
+	
+param twub :=
+	STOKEONTRENT	24
+	DERBY 			24
+	EASTWOOD 		24
+	MANSFIELD 		24
+	SHEFFIELD 		24
+	STOCKPORT 		24
+	PRESTON 		24
+	LIVERPOOL		24
+	CHESTER 		24
+	WARRINGTON		24
+;
+	
+param q :=
+	STOKEONTRENT	200 
+	DERBY 			200
+	EASTWOOD 		200
+	MANSFIELD 		200
+	SHEFFIELD 		200
+	STOCKPORT 		200
+	PRESTON 		200
+	LIVERPOOL		200
+	CHESTER 		200
+	WARRINGTON		200
+;

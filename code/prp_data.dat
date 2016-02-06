@@ -1,0 +1,77 @@
+### DATA ###
+
+data;
+
+set cities := ALESSANDRIA BERGAMO PIACENZA MILANO PAVIA;
+set depot := MILANO;
+set speed_levels := 1 2 3 4 5 6 #7 8 9 10 11 12 13 14 15;
+;
+
+param ga := 9.81;		# metri/s^2
+param ad := 1.255;		# kg/m^3
+param fc := 1.20;		# euro/litro
+param ec := 0.034;		# euro/kg
+param ghgfe := 2.65;	# kg/litro
+param diesel_energy := 36400000;
+						# J
+param engine_efficiency := 0.45;
+						# Numero puro
+param L := 9999;		# Numero puro
+
+param fleet_dim := 2;	# numero puro
+param gvw := 8000;		# kg
+param uvw := 4400;		# kg
+param rrc := 0.02;		# ?
+param drc := 0.7;		# ?
+param fsa := 7;			# m^2
+
+param twlb := 
+	MILANO			8
+	ALESSANDRIA 	8
+	BERGAMO			9
+	PIACENZA		10
+	PAVIA			8;
+	
+param twub :=
+	MILANO			18
+	ALESSANDRIA		10
+	BERGAMO			11
+	PIACENZA		13
+	PAVIA			10;
+	
+param st :=
+	MILANO			0.60
+	ALESSANDRIA 	0.3
+	BERGAMO			1
+	PIACENZA		0.7
+	PAVIA			0.5;
+	
+param q :=
+	MILANO			0
+	ALESSANDRIA 	2000
+	BERGAMO			1000
+	PIACENZA		2000
+	PAVIA			1000;
+
+param driver_wage := 8.5;
+
+param slb := 50000;
+param sub := 150000;
+	
+param d default 9999999999:
+                                           ALESSANDRIA                    BERGAMO                     MILANO                      PAVIA                   PIACENZA  :=
+                ALESSANDRIA                          .                   155268.0                    97500.0                    82223.0                   100061.0
+                    BERGAMO                   155268.0                          .                    60654.0                   101425.0                   111371.0
+                     MILANO                    97500.0                    60654.0                          .                    44314.0                    70280.0
+                      PAVIA                    82223.0                   101425.0                    44314.0                          .                    51957.0
+                   PIACENZA                   100061.0                   111371.0                    70280.0                    51957.0                          .
+                   ;
+
+param angle default 0:
+                                           ALESSANDRIA                    BERGAMO                     MILANO                      PAVIA                   PIACENZA      :=
+                ALESSANDRIA                          .        0.08229566687721267       0.041754537877075594        0.03502523363686555      -0.008081656416840109
+                    BERGAMO        0.08229566687721267                          .        0.15636255682654812       -0.08528476639937514        0.11677198322396981
+                     MILANO       0.041754537877075594        0.15636255682654812                          .       -0.03967936763321768      -0.049320706684095036
+                      PAVIA        0.03502523363686555       -0.08528476639937514       -0.03967936763321768                          .      -0.023143934344521513
+                   PIACENZA      -0.008081656416840109        0.11677198322396981      -0.049320706684095036      -0.023143934344521513                          .
+                   ;

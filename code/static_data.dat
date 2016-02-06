@@ -1,0 +1,71 @@
+data;
+
+param ga := 9.81;		# metri/s^2
+param ad := 1.255;		# kg/m^3
+param fc := 1.20;		# euro/litro
+param ec := 0.034;		# euro/kg
+param ghgfe := 2.65;	# kg/litro
+param diesel_energy := 36400000;
+						# J
+param engine_efficiency := 0.45;
+						# Numero puro
+param L := 9999;		# Numero puro
+
+param gvw := 8000;		# kg
+param uvw := 4400;		# kg
+param rrc := 0.02;		# ?
+param drc := 0.7;		# ?
+param fsa := 7;			# m^2
+param driver_wage := 8.5; # euro/ora
+
+
+set cities := STOKEONTRENT DERBY EASTWOOD MANSFIELD SHEFFIELD STOCKPORT PRESTON LIVERPOOL CHESTER WARRINGTON;
+set depot := STOCKPORT;
+
+set speed_levels := 1 2 #3 4 5 6 7 8 9 10 11 12 13 14 15;
+;
+
+param slb := 40000;
+param sub := 100000;
+
+
+param st :=
+	STOKEONTRENT	0.5 
+	DERBY 			0.5
+	EASTWOOD 		0.5
+	MANSFIELD 		0.5
+	SHEFFIELD 		0.5
+	STOCKPORT 		0.5
+	PRESTON 		0.5
+	LIVERPOOL		0.5
+	CHESTER 		0.5
+	WARRINGTON		0.5
+;
+
+param d default 9999999999:
+					STOKEONTRENT	DERBY	EASTWOOD	MANSFIELD	SHEFFIELD	STOCKPORT	PRESTON	LIVERPOOL	CHESTER		WARRINGTON :=
+	STOKEONTRENT	.				56400	80200		90400		76300		69900		105000	91000		72000		59600				 
+	DERBY 			56400			.		18900		37500		65200		86400		148000	136000		98500		104000
+	EASTWOOD 		80200			18900	.			19400		51200		85900		178000	143000		102000		116000
+	MANSFIELD 		90400			37500	19400		.			38700		80100		192000	173000		108000		115000
+	SHEFFIELD 		76300			65200	51200		38700		.			59400		119000	129000		60900		94400
+	STOCKPORT 		69900			86400	85900		80100		59400		.			68200	67100		10700		37000
+	PRESTON 		105000			148000	178000		192000		119000		68200		.		54800		53400		49900
+	LIVERPOOL		91000			136000	143000		173000		129000		67100		54800	.			55700		29500
+	CHESTER 		60900			146000	143000		169000		122000		82200		91400	29000		.			34900
+	WARRINGTON		59600			104000	116000		115000		94400		37000		49900	29500		32700		.
+	;
+
+param angle default 0:
+					STOKEONTRENT	DERBY	EASTWOOD	MANSFIELD	SHEFFIELD	STOCKPORT	PRESTON	LIVERPOOL	MANCHESTER	WARRINGTON :=
+	STOKEONTRENT	.				.		.			.			.			.			.		.			.			. 
+	DERBY 			.				.		.			.			.			.			.		.			.			.
+	EASTWOOD 		.				.		.			.			.			.			.		.			.			.
+	MANSFIELD 		.				.		.			.			.			.			.		.			.			.
+	SHEFFIELD 		.				.		.			.			.			.			.		.			.			.
+	STOCKPORT 		.				.		.			.			.			.			.		.			.			.
+	PRESTON 		.				.		.			.			.			.			.		.			.			.
+	LIVERPOOL		.				.		.			.			.			.			.		.			.			.
+	MANCHESTER 		.				.		.			.			.			.			.		.			.			.
+	WARRINGTON		.				.		.			.			.			.			.		.			.			.
+	;

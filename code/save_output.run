@@ -1,0 +1,10 @@
+display cost > soluzione.txt;
+display X >> soluzione.txt;
+display F >> soluzione.txt;
+display Z >> soluzione.txt;
+display Arrivaltime >> soluzione.txt;
+display Tourtime >> soluzione.txt;
+
+close soluzione.txt;
+
+printf("Eseguire il comando: \n display {j in 1.._nvars} (_varname[j],_var[j],_var[j].ub,_var[j].rc) >> soluzione.txt; \n per salvare un report più dettagliato della soluzione\n");

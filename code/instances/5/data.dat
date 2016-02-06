@@ -1,0 +1,46 @@
+### DATA ###
+# |Veicoli| = 3
+# time windows
+
+data;
+
+param fleet_dim := 3;	# numero puro
+
+param twlb := 
+	STOKEONTRENT	10 
+	DERBY 			11
+	EASTWOOD 		12
+	MANSFIELD 		14
+	SHEFFIELD 		15
+	STOCKPORT 		0
+	PRESTON 		10
+	LIVERPOOL		11
+	CHESTER 		13
+	WARRINGTON		8
+;
+	
+param twub :=
+	STOKEONTRENT	14 
+	DERBY 			15
+	EASTWOOD 		14
+	MANSFIELD 		16
+	SHEFFIELD 		17
+	STOCKPORT 		0
+	PRESTON 		13
+	LIVERPOOL		15
+	CHESTER 		16
+	WARRINGTON		12
+;
+	
+param q :=
+	STOKEONTRENT	700 
+	DERBY 			700
+	EASTWOOD 		700
+	MANSFIELD 		700
+	SHEFFIELD 		700
+	STOCKPORT 		700
+	PRESTON 		700
+	LIVERPOOL		700
+	CHESTER 		700
+	WARRINGTON		700
+;

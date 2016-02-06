@@ -1,0 +1,8 @@
+reset;
+model prp_model.mod;
+data static_data.dat;
+data instances/5/data.dat
+option solver cplex;
+solve;
+
+include save_output.run;

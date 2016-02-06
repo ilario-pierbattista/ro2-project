@@ -1,0 +1,8 @@
+reset;
+model prp_model.mod;
+data prp_data.dat;
+option solver cplex;
+#option cplex_options 'iisfind 1';
+solve;
+#display {i in 1.._ncons: _con[i].iis <> 'non'} (_conname[i],_con[i].iis);
+#display {j in 1.._nvars: _var[j].iis <> 'non'} (_varname[j],_var[j].iis);
